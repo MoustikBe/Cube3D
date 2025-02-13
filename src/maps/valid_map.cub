@@ -1,1 +1,6 @@
-NO aawawdawdawdawdadw
+NO                        src/maps/valid_map.cub    
+SO       src/maps/valid_map.cub   
+EA    src/maps/valid_map.cub       
+WE               src/maps/valid_map.cub      
+
+C 255,255,0d

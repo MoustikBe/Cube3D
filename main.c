@@ -11,6 +11,7 @@ int main(int argc, char **argv)
 		return(ft_printf("Error\nOnly one argument is accepted !\n"));
 	skin = malloc(sizeof(t_texture));
 	cube = malloc(sizeof(t_cube));
+	init_struct(skin);
 	if(parsing(skin, cube, argv))
 		return(1);
 	return(free(cube), free(skin), 0);

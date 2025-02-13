@@ -17,6 +17,7 @@ typedef struct t_texture
 	char	*WE;
 	int		*F;
 	int		*C;
+	int		error;
 }	t_texture;
 
 typedef struct t_cube
@@ -27,8 +28,7 @@ typedef struct t_cube
 
 // -- functions --//
 int parsing(t_texture *skin, t_cube *cube, char **argv);
-
-
+void init_struct(t_texture *skin);
 
 // -- functions --//
 #endif
