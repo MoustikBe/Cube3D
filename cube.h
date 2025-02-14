@@ -22,7 +22,11 @@ typedef struct t_texture
 
 typedef struct t_cube
 {
-	char *file_map;
+	char	*file_map;
+	char	**map;
+	int		x_player;
+	int		y_player;
+	int		player;
 }	t_cube;
 // -- struct --//
 

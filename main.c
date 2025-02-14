@@ -14,5 +14,6 @@ int main(int argc, char **argv)
 	init_struct(skin);
 	if(parsing(skin, cube, argv))
 		return(1);
+	printf(">> SUCCESS !\n");
 	return(free(cube), free(skin), 0);
 }

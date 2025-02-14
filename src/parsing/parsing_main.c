@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:58:44 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/02/13 13:30:49 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/02/14 13:41:16 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,41 @@ void	set_skin(t_texture *skin, char **texture, char *line)
 	free(str);
 }
 
+int	rgb_checker(int *nb)
+{
+	int i;
+
+	i = 0;
+	while (i < 3)
+	{
+		if(nb[i] > 255 || nb[i] < 0)
+			return (ft_printf("Error\nRGB color are bettween 0 and 255\n"));
+		i++;
+	}
+	return(0);
+}
+
 void	check_component(t_texture *skin)
 {
-	if(!skin->NO || !skin->SO || !skin->EA || !skin->WE)
+	int i;
+
+	if(!skin->NO || !skin->SO || !skin->EA || !skin->WE || !skin->C || !skin->F)
 	{
-		ft_printf("Error\nMissing texture.\n");
+		ft_printf("Error\nMissing color or texture valid.\n");
 		skin->error = 1;
 	}
 	else if(open(skin->NO, R_OK) < 0 || open(skin->SO, R_OK) < 0 || open(skin->EA, R_OK) < 0 || open(skin->WE, R_OK) < 0)
 	{
 		ft_printf("Error\nInvalid texture file.\n");
 		skin->error = 1;
+	}
+	else
+	{
+		if(rgb_checker(skin->C) || rgb_checker(skin->F))
+		{
+			skin->error = 1;
+			return ;
+		}
 	}
 }
 
@@ -83,10 +107,12 @@ void	set_fc_color(t_texture *skin, int **color, char *line)
 	// INT *C = [0,0,0]; 
 	int i;
 	int i_copy;
+	int flag;
 
+	flag = 0;
 	if(*color)
 	{
-		ft_printf("Error\nMissing color.\n");
+		ft_printf("Error\nDuplicate color.\n");
 		skin->error = 1;
 	}
 	i = 1; 
@@ -94,17 +120,65 @@ void	set_fc_color(t_texture *skin, int **color, char *line)
 		i++;
 	while (line[i])
 	{
-		if(!ft_isdigit(line[i]) && line[i] != ',' && line[i] != ' ')
+		if(!ft_isdigit(line[i]) && line[i] != ',' && line[i] != ' ' && line[i] != '\n')
 		{
 			ft_printf("Error\nNot valid color format\n");
 			skin->error = 1;
 			return ;
 		}
 		while((line[i] == ',' || line[i] == ' ') && line[i])
-			i++;
-		i++;		
+		{
+			if(line[i] == ',')
+				flag++;
+			i++;	
+		}
+		if(ft_isdigit(line[i]) || line[i] == '\n')
+			i++;	
 	}
-	//*color = malloc(sizeof(int) * 3);
+	if(flag != 2)
+		return ;
+	/* VERIFICATION */
+	*color = malloc(sizeof(int) * 3);
+	char *clr_str;
+	i = 1;
+	i_copy = 0;
+	int nb = 0;
+	int len = 0;
+	while (nb < 3)
+	{
+		len = 0;
+		i_copy = i;
+		while (line[i] != ',' && line[i])
+		{
+			if(line[i] == ' ' || line[i] == '\n')
+				i++;
+			else
+			{
+				i++;
+				len++;
+			}
+		}
+		clr_str = malloc(sizeof(char) * len + 1);
+		len = 0;
+		while (line[i_copy] != ',' && line[i_copy])
+		{
+			if(line[i_copy] == ' ' || line[i_copy] == '\n')
+				i_copy++;
+			else
+				clr_str[len++] = line[i_copy++];
+		}
+		clr_str[len] = '\0';
+		if(clr_str[0] == '\0')
+		{
+			ft_printf("Error\nNot existing value for rgb\n");
+			skin->error = 1;
+			return ;
+		}
+		(*color)[nb] = ft_atoi(clr_str);
+		free(clr_str);
+		nb++;
+		i++;
+	}
 }
 
 void verif_info(t_texture *skin, t_cube *cube)
@@ -134,6 +208,25 @@ void verif_info(t_texture *skin, t_cube *cube)
 		line = get_next_line(fd_map);
 	}
 	check_component(skin);
+	close(fd_map);
+}
+
+int verif_map(t_cube *cube)
+{
+	char	*line;
+	int		fd_map;
+
+	fd_map = open(cube->file_map, R_OK);
+	line = get_next_line(fd_map);
+	while (line)
+	{
+		// ICI tant que les lignes ne sont pas des lignes avec des info de la map on doit les passer. 
+		free(line);
+		line = get_next_line(fd_map);
+	}
+	// peut-être utile pour la verif de tout est ok. check_component_map();
+	close(fd_map);
+	return(0);
 }
 
 int	parsing(t_texture *skin, t_cube *cube, char **argv)
@@ -143,6 +236,8 @@ int	parsing(t_texture *skin, t_cube *cube, char **argv)
 		return (1);
 	verif_info(skin, cube);
 	if (skin->error)
+		return (1);
+	if (verif_map(cube));
 		return (1);
 	return (0);
 }
