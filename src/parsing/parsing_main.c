@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:58:44 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/02/14 13:41:16 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/02 21:04:50 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,20 @@ void verif_info(t_texture *skin, t_cube *cube)
 	close(fd_map);
 }
 
+int verif_line(char *line)
+{
+	int i = 0;
+	
+	while (line[i] == '1' || line[i] == '0' || line[i] == 'N' || line[i] == 'E' || line[i] == 'W' || line[i] == 'S')
+	{
+		if(!line[i + 1] || line[i + 1] == '\n')
+			return(1); // Ligne avec seuelemt 1 0 N E W S, mais pas le plus otpi assez brouillon et moche. //
+		i++;
+	}
+	return(0);
+}
+
+
 int verif_map(t_cube *cube)
 {
 	char	*line;
@@ -221,6 +235,8 @@ int verif_map(t_cube *cube)
 	while (line)
 	{
 		// ICI tant que les lignes ne sont pas des lignes avec des info de la map on doit les passer. 
+		if(verif_line(line))
+			printf("Adding to strcut for the map.%s", line);
 		free(line);
 		line = get_next_line(fd_map);
 	}
@@ -237,7 +253,7 @@ int	parsing(t_texture *skin, t_cube *cube, char **argv)
 	verif_info(skin, cube);
 	if (skin->error)
 		return (1);
-	if (verif_map(cube));
+	if (verif_map(cube))
 		return (1);
 	return (0);
 }

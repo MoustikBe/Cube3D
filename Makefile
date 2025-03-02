@@ -6,7 +6,7 @@ RM          = rm -rf
 
 SOURCES     = main.c \
 			  src/parsing/parsing_main.c \
-			  src/utils/utils.c 
+			  src/utils/utils.c
 
 OBJECTS     = $(SOURCES:%.c=%.o)
 
