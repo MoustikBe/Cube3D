@@ -5,7 +5,7 @@ LDFLAGS     = -g3 #-fsanitize=address
 RM          = rm -rf
 
 SOURCES     = main.c \
-			  src/parsing/parsing_main.c \
+			  src/parsing/pars_main.c src/parsing/pars_color.c src/parsing/pars_verif.c src/parsing/pars_storage.c \
 			  src/utils/utils.c
 
 OBJECTS     = $(SOURCES:%.c=%.o)

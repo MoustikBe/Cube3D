@@ -1,14 +1,14 @@
 #ifndef CUBE_H
 # define CUBE_H
 
-// -- Library -- // 
+// # --- Library --- # // 
 # include <stdio.h>
 # include <unistd.h> 
 # include <stdlib.h>
 # include <fcntl.h>
-// -- Library -- // 
+// # --- Library --- # // 
 
-// -- struct --//
+// # --- struct --- # //
 typedef struct t_texture
 {
 	char	*NO;
@@ -30,11 +30,30 @@ typedef struct t_cube
 	int		y_dir_plr;
 	int		player;
 }	t_cube;
-// -- struct --//
+// # --- struct --- # //
 
-// -- functions --//
-int parsing(t_texture *skin, t_cube *cube, char **argv);
-void init_struct(t_texture *skin, t_cube *cube);
+// # --- functions --- # //
+
+// -- Parsing -- //
+// - pars_main.c - //
+int		parsing(t_texture *skin, t_cube *cube, char **argv);
+void	check_component(t_texture *skin);
+// - pars_color.c - //
+int		rgb_checker(int *nb);
+void	set_fc_color(t_texture *skin, int **color, char *line);
+// - pars_verif.c - //
+int		verif_file(t_cube *c);
+int		verif_line(char *line);
+int		verif_map(t_cube *cube);
+void	verif_info(t_texture *skin, t_cube *cube);
+// - pars_storage.c - //
+int		saving_data(t_cube *cube, char *line, int index);
+void	set_skin(t_texture *skin, char **texture, char *line);
+
+// -- Utils -- //
+// - utils.c - //
+void	init_struct(t_texture *skin, t_cube *cube);
+int		len_map(t_cube *cube);
 
 // -- functions --//
 #endif

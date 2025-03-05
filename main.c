@@ -28,6 +28,9 @@ int main(int argc, char **argv)
 	if(parsing(skin, cube, argv))
 		return(1);
 	
+
+
+	
 	ft_printf(">> SUCCESS !\n");
 	print_map(cube);
 	
