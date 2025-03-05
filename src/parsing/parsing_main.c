@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:58:44 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/05 12:16:22 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/05 12:40:34 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,8 +296,6 @@ int verif_map(t_cube *cube)
 	line = get_next_line(fd_map);
 	while (line)
 	{
-		// LA LIGNE DOIT ÊTRE : commencer par NO,SO,WE,EA,F,C ou '\n' ou être accepter par verif_line. SI pas error.
-		// ICI tant que les lignes ne sont pas des lignes avec des info de la map on doit les passer. 
 		if(verif_line(line))
 		{
 			
@@ -323,9 +321,8 @@ int verif_map(t_cube *cube)
 	}
 	close(fd_map);
 	cube->map[index] = NULL;
-	//if(check_component_map(cube))
-	//	return(1);
-	// peut-être utile pour la verif de tout est ok. check_component_map();
+	if(!cube->x_plr && !cube->y_plr)
+		return(ft_printf("Error no player location found\n"));
 	return(0);
 }
 
