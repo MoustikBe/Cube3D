@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:58:44 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/02 21:04:50 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/05 12:16:22 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ int verif_line(char *line)
 {
 	int i = 0;
 	
-	while (line[i] == '1' || line[i] == '0' || line[i] == 'N' || line[i] == 'E' || line[i] == 'W' || line[i] == 'S')
+	while (line[i] == '\v' || line[i] == '\t' || line[i] == ' ' || line[i] == '1' || line[i] == '0' || line[i] == 'N' || line[i] == 'E' || line[i] == 'W' || line[i] == 'S')
 	{
 		if(!line[i + 1] || line[i + 1] == '\n')
 			return(1); // Ligne avec seuelemt 1 0 N E W S, mais pas le plus otpi assez brouillon et moche. //
@@ -224,24 +224,108 @@ int verif_line(char *line)
 	return(0);
 }
 
+int	len_map(t_cube *cube)
+{
+	char	*line;
+	int		fd_map;
+	int		len;
+
+	len = 0;
+	fd_map = open(cube->file_map, R_OK);
+	line = get_next_line(fd_map);
+	while (line)
+	{
+		if(verif_line(line))
+			len++;
+		free(line);
+		line = get_next_line(fd_map);
+	}
+	close(fd_map);
+	return(len);
+}
+
+int saving_data(t_cube *cube, char *line, int index)
+{
+	int i;
+
+	i = 0;
+	while (line[i])
+	{
+		if(line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+		{
+			if(cube->y_plr || cube->x_plr)
+				return(ft_printf("Error duplicate component\n"));
+			cube->y_plr = index;
+			cube->x_plr = i;
+		}
+		if(line[i] == 'N')
+		{
+			cube->y_dir_plr = -1;
+			cube->x_dir_plr = 0;
+		}
+		else if(line[i] == 'S')
+		{
+			cube->y_dir_plr = 1;
+			cube->x_dir_plr = 0;
+		}
+		else if(line[i] == 'W')
+		{
+			cube->y_dir_plr = 0;
+			cube->x_dir_plr = -1;
+		}
+		else if(line[i] == 'E')
+		{
+			cube->y_dir_plr = 0;
+			cube->x_dir_plr = 1;
+		}
+		i++;
+	}
+	cube->map[index] = ft_strdup(line);
+	return(0);
+}
 
 int verif_map(t_cube *cube)
 {
 	char	*line;
 	int		fd_map;
+	int		index;
 
+	index = 0;
+	cube->map = malloc(sizeof(char *) * (len_map(cube) + 1));
 	fd_map = open(cube->file_map, R_OK);
 	line = get_next_line(fd_map);
 	while (line)
 	{
+		// LA LIGNE DOIT ÊTRE : commencer par NO,SO,WE,EA,F,C ou '\n' ou être accepter par verif_line. SI pas error.
 		// ICI tant que les lignes ne sont pas des lignes avec des info de la map on doit les passer. 
 		if(verif_line(line))
-			printf("Adding to strcut for the map.%s", line);
-		free(line);
-		line = get_next_line(fd_map);
+		{
+			
+			if(saving_data(cube, line, index))
+			{
+				free(line);
+				return(1);
+			}
+			index++;
+			free(line);
+			line = get_next_line(fd_map);
+		}
+		else if(!ft_strncmp("NO ", line, 3) || !ft_strncmp("EA ", line, 3) || !ft_strncmp("WE ", line, 3) || !ft_strncmp("SO ", line, 3) || ft_strncmp("F ", line, 2) == 0 || ft_strncmp("C ", line, 2) == 0 || line[0] == '\n')
+		{
+			free(line);
+			line = get_next_line(fd_map);
+		}
+		else
+		{
+			free(line);
+			return(ft_printf("Error bad config file\n"));
+		}
 	}
-	// peut-être utile pour la verif de tout est ok. check_component_map();
 	close(fd_map);
+	cube->map[index] = NULL;
+	//if(check_component_map(cube))
+	//	return(1);
+	// peut-être utile pour la verif de tout est ok. check_component_map();
 	return(0);
 }
 

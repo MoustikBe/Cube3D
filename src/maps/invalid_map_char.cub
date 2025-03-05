@@ -1,0 +1,13 @@
+NO src/maps/valid_map.cub
+SO src/maps/valid_map.cub
+WE src/maps/valid_map.cub
+EA src/maps/valid_map.cub
+
+F 200,200,200
+C 100,100,100
+
+11111
+
+10001
+1N001
+11111

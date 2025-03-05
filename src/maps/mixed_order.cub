@@ -1,0 +1,16 @@
+F 220,220,220
+EA src/maps/valid_map.cub
+C 100,50,50
+WE src/maps/valid_map.cub
+
+SO src/maps/valid_map.cub
+NO src/maps/valid_map.cub
+
+111111111
+100000001
+10N000001
+100110001
+101000101
+101000101
+100000001
+111111111

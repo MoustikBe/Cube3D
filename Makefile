@@ -11,12 +11,12 @@ SOURCES     = main.c \
 OBJECTS     = $(SOURCES:%.c=%.o)
 
 %.o: %.c
-	@printf "\033[0;30mGenerating minishell objects... %-33.33s\r" $@
+	@printf "\033[0;30mGenerating cube objects... %-33.33s\r" $@
 	@$ $(CC) $(CFLAGS) -c -g3 $< -o $@
 
 $(NAME): $(OBJECTS)
 	@echo "\n"
-	@echo "\033[0;32mCompiling minishell..."
+	@echo "\033[0;32mCompiling cube..."
 	@$(CC) $(OBJECTS) $(LDFLAGS) -L src/libs/libft -lft -o $(NAME) 
 	@echo "\n\033[0;32mDone !"
 

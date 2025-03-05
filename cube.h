@@ -24,15 +24,17 @@ typedef struct t_cube
 {
 	char	*file_map;
 	char	**map;
-	int		x_player;
-	int		y_player;
+	int		x_plr;
+	int		y_plr;
+	int		x_dir_plr;
+	int		y_dir_plr;
 	int		player;
 }	t_cube;
 // -- struct --//
 
 // -- functions --//
 int parsing(t_texture *skin, t_cube *cube, char **argv);
-void init_struct(t_texture *skin);
+void init_struct(t_texture *skin, t_cube *cube);
 
 // -- functions --//
 #endif
