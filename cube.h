@@ -59,6 +59,7 @@ void	init_struct(t_texture *skin, t_cube *cube);
 int		len_map(t_cube *cube);
 int		len_array(char **map);
 char	**copy_map(char **map);
+void	free_struct(char **map);
 
 // -- functions --//
 #endif

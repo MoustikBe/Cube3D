@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:14:06 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/07 13:40:13 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/07 13:42:43 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,7 @@ void	fill_algo(char **map, int y, int x, int *detect)
 	fill_algo(map, y, x -1, detect);
 }
 
-void free_struct(char **map)
-{
-	int i;
 
-	i = 0;
-	while(map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
-	return ;
-}
 
 int algo_wall(t_cube *cube)
 {

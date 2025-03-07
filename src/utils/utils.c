@@ -59,3 +59,17 @@ char **copy_map(char **map)
 	map_copy[i] = NULL;
 	return(map_copy);
 }
+
+void free_struct(char **map)
+{
+	int i;
+
+	i = 0;
+	while(map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+	return ;
+}
