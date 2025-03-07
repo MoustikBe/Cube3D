@@ -33,3 +33,29 @@ int	len_map(t_cube *cube)
 	close(fd_map);
 	return(len);
 }
+
+int len_array(char **map)
+{
+	int i;
+
+	i = 0;
+	while(map[i])
+		i++;
+	return(i);
+}
+
+char **copy_map(char **map)
+{
+	char	**map_copy;
+	int		i;
+
+	map_copy = malloc(sizeof(char *) * (len_array(map) + 1));
+	i = 0;
+	while (map[i])
+	{
+		map_copy[i] = ft_strdup(map[i]);
+		i++;
+	}
+	map_copy[i] = NULL;
+	return(map_copy);
+}

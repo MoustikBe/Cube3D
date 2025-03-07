@@ -49,11 +49,16 @@ void	verif_info(t_texture *skin, t_cube *cube);
 // - pars_storage.c - //
 int		saving_data(t_cube *cube, char *line, int index);
 void	set_skin(t_texture *skin, char **texture, char *line);
+// - pars_algo.c - //
+int		algo_wall(t_cube *cube);
+
 
 // -- Utils -- //
 // - utils.c - //
 void	init_struct(t_texture *skin, t_cube *cube);
 int		len_map(t_cube *cube);
+int		len_array(char **map);
+char	**copy_map(char **map);
 
 // -- functions --//
 #endif

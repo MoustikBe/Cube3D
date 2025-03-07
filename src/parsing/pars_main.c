@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:58:44 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/05 13:15:24 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/07 11:13:48 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	parsing(t_texture *skin, t_cube *cube, char **argv)
 		return (1);
 	if (verif_map(cube))
 		return (1);
-	//if (algo_wall(cube))
-	//	return (1);
+	if (algo_wall(cube))
+		return (1);
 	return (0);
 }
