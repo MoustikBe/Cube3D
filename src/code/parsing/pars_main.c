@@ -6,12 +6,12 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:58:44 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/07 11:13:48 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/08 20:08:41 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cube.h"
-#include "../libs/libft/libft.h"
+#include "../../../cube.h"
+#include "../../libs/libft/libft.h"
 
 void	check_component(t_texture *skin)
 {

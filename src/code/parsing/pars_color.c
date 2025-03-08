@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_color.c                                    :+:      :+:    :+:   */
+/*   pars_color.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:53:24 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/05 12:56:29 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/08 20:08:43 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cube.h"
-#include "../libs/libft/libft.h"
+#include "../../../cube.h"
+#include "../../libs/libft/libft.h"
 
 int	rgb_checker(int *nb)
 {

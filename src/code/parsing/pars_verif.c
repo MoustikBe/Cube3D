@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_verif.c                                    :+:      :+:    :+:   */
+/*   pars_verif.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:57:15 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/05 13:01:51 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/08 20:08:26 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cube.h"
-#include "../libs/libft/libft.h"
+#include "../../../cube.h"
+#include "../../libs/libft/libft.h"
 
 int	verif_file(t_cube *c)
 {

@@ -6,12 +6,12 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:14:06 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/07 13:42:43 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/08 20:08:45 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cube.h"
-#include "../libs/libft/libft.h"
+#include "../../../cube.h"
+#include "../../libs/libft/libft.h"
 
 void	fill_algo(char **map, int y, int x, int *detect)
 {

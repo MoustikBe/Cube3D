@@ -1,5 +1,5 @@
 #include "../../cube.h"
-#include "../libs/libft/libft.h"
+#include "../../libs/libft/libft.h"
 
 void init_struct(t_texture *skin, t_cube *cube)
 {
