@@ -34,6 +34,10 @@ typedef struct t_cube
 
 // # --- functions --- # //
 
+// -- Graphics -- //
+// - graph_main.c - //
+void	display2d(t_cube *cube);
+
 // -- Parsing -- //
 // - pars_main.c - //
 int		parsing(t_texture *skin, t_cube *cube, char **argv);

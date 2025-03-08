@@ -24,13 +24,14 @@ INCLUDES	=	-I$(MLX_DIR) -I$(LIBFT_DIR)/inc
 SRC_DIR		=	./src
 OBJ_DIR		=	./obj
 
-SRC			=	$(SRC_DIR)/main.c \
-				$(SRC_DIR)/parsing/pars_algo.c \
-				$(SRC_DIR)/parsing/pars_color.c \
-				$(SRC_DIR)/parsing/pars_main.c \
-				$(SRC_DIR)/parsing/pars_storage.c \
-				$(SRC_DIR)/parsing/pars_verif.c \
-				$(SRC_DIR)/utils/utils.c \
+SRC			=	$(SRC_DIR)/code/main.c \
+				$(SRC_DIR)/code/graphics/graph_main.c \
+				$(SRC_DIR)/code/parsing/pars_algo.c \
+				$(SRC_DIR)/code/parsing/pars_color.c \
+				$(SRC_DIR)/code/parsing/pars_main.c \
+				$(SRC_DIR)/code/parsing/pars_storage.c \
+				$(SRC_DIR)/code/parsing/pars_verif.c \
+				$(SRC_DIR)/code/utils/utils.c \
 
 OBJ			=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

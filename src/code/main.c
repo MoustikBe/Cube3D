@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 	
 	ft_printf(">> SUCCESS !\n");
 	print_map(cube);
-	//display2d(cube);
+	graph_main(cube);
 
 	return(free(cube), free(skin), 0);
 }
