@@ -19,18 +19,21 @@ int main(int argc, char **argv)
 {
 	t_texture *skin;
 	t_cube *cube;
+	t_game *game;
 
 	if (argc != 2)
 		return(ft_printf("Error\nOnly one argument is accepted !\n"));
 	skin = malloc(sizeof(t_texture));
 	cube = malloc(sizeof(t_cube));
+	game = malloc(sizeof(t_game));
+
 	init_struct(skin, cube);
 	if(parsing(skin, cube, argv))
 		return(1);
 	
 	ft_printf(">> SUCCESS !\n");
 	print_map(cube);
-	graph_main(cube);
+	graph_main(cube, skin, game);
 
-	return(free(cube), free(skin), 0);
+	return(free(cube), free(skin), free(game), 0);
 }

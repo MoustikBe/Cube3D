@@ -45,7 +45,7 @@ $(NAME): $(LIBFT) $(OBJ)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -o $@ -c $< $(INCLUDES)
+	@$(CC) $(CFLAGS) -o $@ -g3 -c $< $(INCLUDES)
 
 mlx:
 	@$(MAKE) -C $(MLX_DIR)

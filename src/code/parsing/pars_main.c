@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:58:44 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/08 20:08:41 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/09 17:40:17 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	check_component(t_texture *skin)
 	}
 	else if(open(skin->NO, R_OK) < 0 || open(skin->SO, R_OK) < 0 || open(skin->EA, R_OK) < 0 || open(skin->WE, R_OK) < 0)
 	{
-		ft_printf("Error\nInvalid texture file.\n");
+		ft_printf("Error\nInvalid texture file. %s\n", skin->NO);
 		skin->error = 1;
 	}
 	else

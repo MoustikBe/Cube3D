@@ -30,13 +30,26 @@ typedef struct t_cube
 	int		y_dir_plr;
 	int		player;
 }	t_cube;
+
+typedef struct t_game
+{
+	void	*mlx;
+	void	*wdw;
+	void 	*g_NO;
+	void 	*g_SO;
+	void 	*g_EA;
+	void 	*g_WE;
+	int		len_x;
+	int		len_y;
+}	t_game;
+
 // # --- struct --- # //
 
 // # --- functions --- # //
 
 // -- Graphics -- //
 // - graph_main.c - //
-void	display2d(t_cube *cube);
+void	graph_main(t_cube *cube, t_texture *skin, t_game *game);
 
 // -- Parsing -- //
 // - pars_main.c - //
