@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 20:14:24 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/11 15:03:34 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:21:16 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,16 +197,13 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
         draw_square(game, game->px * cell_size + offset, game->py * cell_size + offset, player_size, 0x000000);
 		game->px -= game->pdx;
 		game->py -= game->pdy;
-		//draw_line_negatif(game);
 		draw_square(game, game->px * cell_size + offset, game->py * cell_size + offset, player_size, 0xFF0000);
         mlx_put_image_to_window(game->mlx, game->wdw, game->img, 0, 0);
     }
 	else if (keysym == 97) // Touche A -> Gauche
     {
-		clean_line(game);
-		// Doit interferer avec l'angle ou nous les mouvements 
+		clean_line(game); 
         draw_square(game, game->px * cell_size + offset, game->py * cell_size + offset, player_size, 0x000000);
-		/**/
 		game->pa -= 0.1;
 		if(game->pa < 0)
 			game->pa += 2*PI;
@@ -219,9 +216,7 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
 	else if (keysym == 100) // Touche D -> Droite
     {
 		clean_line(game);
-		// Doit interferer avec l'angle ou nous les mouvements 
         draw_square(game, game->px * cell_size + offset, game->py * cell_size + offset, player_size, 0x000000);
-		// Clean line
 		
 		game->pa += 0.1;
 		if(game->pa > 2*PI)
