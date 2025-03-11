@@ -48,8 +48,14 @@ typedef struct t_game
 	char **map;
 	float	angle;
 	float	speed;
-	float player_x;
-	float player_y;
+
+	float px;
+	float py;
+	float pdx;
+	float pdy;
+	float pa;
+	
+	int keys[256]; 
 	/* Info */
 	int		len_x;
 	int		len_y;
