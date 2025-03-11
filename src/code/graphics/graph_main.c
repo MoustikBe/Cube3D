@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 20:14:24 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/11 14:56:40 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:03:34 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,8 @@ void	graph_main(t_cube *cube, t_texture *skin)
 
 	draw_map(&game, cube->map);
 	printf("\n y -> %f x-> %f\n", game.py, game.px);
-	mlx_key_hook(game.wdw, mng_input, &game);
+	//mlx_key_hook(game.wdw, mng_input, &game);
+	mlx_hook(game.wdw, 2, 1L << 0, mng_input, &game);
 	mlx_hook(game.wdw, 17, 0, exit_game, &game);
 	mlx_loop(game.mlx);
 }
