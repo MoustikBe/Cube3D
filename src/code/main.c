@@ -33,7 +33,8 @@ int main(int argc, char **argv)
 	
 	ft_printf(">> SUCCESS !\n");
 	print_map(cube);
-	graph_main(cube, skin, game);
+	game->map = copy_map(cube->map); 
+	graph_main(cube, skin);
 
 	return(free(cube), free(skin), free(game), 0);
 }

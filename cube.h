@@ -6,6 +6,7 @@
 # include <unistd.h> 
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 // # --- Library --- # // 
 
 // # --- struct --- # //
@@ -26,6 +27,8 @@ typedef struct t_cube
 	char	**map;
 	int		x_plr;
 	int		y_plr;
+
+
 	int		x_dir_plr;
 	int		y_dir_plr;
 	int		player;
@@ -33,14 +36,29 @@ typedef struct t_cube
 
 typedef struct t_game
 {
+	/* Display */
 	void	*mlx;
 	void	*wdw;
+	void	*img;
+	char	*addr;
+    int     endian;
+	int     line_length;
+	int		bit_per_pixel;
+
+	char **map;
+	float	angle;
+	float	speed;
+	float player_x;
+	float player_y;
+	/* Info */
+	int		len_x;
+	int		len_y;
+	/* PAUSE */
 	void 	*g_NO;
 	void 	*g_SO;
 	void 	*g_EA;
 	void 	*g_WE;
-	int		len_x;
-	int		len_y;
+	t_cube	*cube;
 }	t_game;
 
 // # --- struct --- # //
@@ -49,7 +67,7 @@ typedef struct t_game
 
 // -- Graphics -- //
 // - graph_main.c - //
-void	graph_main(t_cube *cube, t_texture *skin, t_game *game);
+void	graph_main(t_cube *cube, t_texture *skin);
 
 // -- Parsing -- //
 // - pars_main.c - //
