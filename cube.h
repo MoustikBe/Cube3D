@@ -54,6 +54,20 @@ typedef struct t_game
 	float pdx;
 	float pdy;
 	float pa;
+
+	/* -- RAYCASTER -- */
+	int		r;
+	int		mx;
+	int 	my;
+	int 	mp;
+	int 	dof;
+	
+	float	rx;
+	float	ry;
+	float	ra;
+	float	xo;
+	float	yo;
+	/* RAYCASTER */
 	
 	int keys[256]; 
 	/* Info */
