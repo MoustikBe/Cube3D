@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 20:14:24 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/13 13:44:18 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:00:07 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 int	exit_game(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->wdw);
+	mlx_destroy_window(game->mlx3d, game->wdw3d);
 	free(game->mlx);
+	free(game->mlx3d);
 	exit(1);
 }
 
@@ -50,6 +52,15 @@ void my_mlx_pixel_put(t_game *game, int x, int y, int color)
         return; // Évite un accès mémoire hors limites
 
     char *dst = game->addr + (y * game->line_length + x * (game->bit_per_pixel / 8));
+    *(unsigned int*)dst = color;
+}
+
+void my_mlx_pixel_put3D(t_game *game, int x, int y, int color)
+{
+    if (x < 0 || y < 0 || x >= game->len_x * 100 || y >= game->len_y * 100)
+        return; // Évite un accès mémoire hors limites
+
+    char *dst = game->addr3d + (y * game->line_length3d + x * (game->bit_per_pixel3d / 8));
     *(unsigned int*)dst = color;
 }
 
@@ -162,47 +173,134 @@ void clean_line(t_game *game)
 		i++;
 	}
 }
+float cast_ray(t_game *game, float ray_angle)
+{
+    // Position de départ (position du joueur)
+    float posX = game->px;
+    float posY = game->py;
+    
+    // Vecteur direction du rayon
+    float rayDirX = cos(ray_angle);
+    float rayDirY = sin(ray_angle);
+    
+    // Coordonnées de la case où se trouve le joueur
+    int mapX = (int)posX;
+    int mapY = (int)posY;
+    
+    // Calcul des distances à parcourir pour passer d'une case à l'autre en X et Y
+    float deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1.0 / rayDirX);
+    float deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1.0 / rayDirY);
+    
+    // Initialisation des pas et des distances latérales (sideDist)
+    int stepX, stepY;
+    float sideDistX, sideDistY;
+    
+    if (rayDirX < 0)
+    {
+        stepX = -1;
+        sideDistX = (posX - mapX) * deltaDistX;
+    }
+    else
+    {
+        stepX = 1;
+        sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+    }
+    
+    if (rayDirY < 0)
+    {
+        stepY = -1;
+        sideDistY = (posY - mapY) * deltaDistY;
+    }
+    else
+    {
+        stepY = 1;
+        sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+    }
+    
+    // Variable pour savoir sur quel côté le mur a été touché (0 pour un côté vertical, 1 pour un côté horizontal)
+    int side = 0;
+    int hit = 0;
+    
+    // Boucle DDA : avance case par case jusqu'à rencontrer un mur ('1')
+    while (!hit)
+    {
+        if (sideDistX < sideDistY)
+        {
+            sideDistX += deltaDistX;
+            mapX += stepX;
+            side = 0;
+        }
+        else
+        {
+            sideDistY += deltaDistY;
+            mapY += stepY;
+            side = 1;
+        }
+        // Vérifie si la case courante contient un mur
+        if (game->cube->map[mapY][mapX] == '1')
+            hit = 1;
+    }
+    
+    // Calcul de la distance perpendiculaire au mur pour corriger l'effet fish-eye
+    float perpWallDist;
+    if (side == 0)
+        perpWallDist = (mapX - posX + (1 - stepX) / 2.0) / rayDirX;
+    else
+        perpWallDist = (mapY - posY + (1 - stepY) / 2.0) / rayDirY;
+    
+    return perpWallDist;
+}
+
+void clear_buffer3d(t_game *game, int screenWidth, int screenHeight, int bgColor)
+{
+    for (int y = 0; y < screenHeight; y++)
+    {
+        for (int x = 0; x < screenWidth; x++)
+        {
+            my_mlx_pixel_put3D(game, x, y, bgColor);
+        }
+    }
+}
+
 
 void ray_tracer(t_game *game)
 {
-    // On part du même angle que celui du joueur
-    game->ra = game->pa;
-    float ray_step = 0.01;  // Incrément de déplacement (à ajuster selon la précision désirée)
-    float distance = 0;
-    float rx = game->px;    // Position x du rayon (en coordonnées de la grille)
-    float ry = game->py;    // Position y du rayon
+    int screenWidth = game->len_x * 100;
+    int screenHeight = game->len_y * 100;
+    float FOV = 60.0 * (PI / 180.0);
 
-    // On avance le rayon tant qu'on ne dépasse pas une distance maximale (pour éviter une boucle infinie)
-    while (distance < 1000)
+    // Efface le buffer 3D en remplissant toute l'image d'une couleur de fond (par exemple, un gris foncé)
+    clear_buffer3d(game, screenWidth, screenHeight, 0x333333);
+
+    for (int x = 0; x < screenWidth; x++)
     {
-        int mapX = (int)rx;
-        int mapY = (int)ry;
-		printf("############\ncube[%d][%d] -> %c\n", (int)(game->py), (int)(game->px), game->cube->map[(int)(game->py)][(int)(game->px)]);
-		printf("-----------\nmap -> X %d | map -> Y %d\n", mapX, mapY);
-        
-        // Vérifier que le rayon reste dans les limites de la carte
-        if (mapY < 0 || mapY >= game->len_y || mapX < 0 || mapX >= (int)ft_strlen(game->cube->map[mapY]))
+        float ray_angle = game->pa - (FOV / 2) + ((float)x / screenWidth) * FOV;
+        float perpWallDist = cast_ray(game, ray_angle);
+		float correctedDist = perpWallDist * cos(ray_angle - game->pa);
+        int lineHeight = (int)(screenHeight / correctedDist);
+
+        int drawStart = -lineHeight / 2 + screenHeight / 2;
+        if (drawStart < 0)
+            drawStart = 0;
+        int drawEnd = lineHeight / 2 + screenHeight / 2;
+        if (drawEnd >= screenHeight)
+            drawEnd = screenHeight - 1;
+        int color = 0x00FF00;
+
+        for (int y = drawStart; y < drawEnd; y++)
         {
-            printf("Ray hors limites après %f unités.\n", distance);
-            return;
+            my_mlx_pixel_put3D(game, x, y, color);
         }
-        
-        // Si le rayon touche un mur ('1' dans la carte)
-        if (game->cube->map[mapY][mapX] == '1')
-        {
-            printf("Ray a touché un mur à une distance de %f unités.\n", distance);
-            return;
-        }
-        
-        // Avancer le rayon le long de sa direction
-        rx += cos(game->ra) * ray_step;
-        ry += sin(game->ra) * ray_step;
-        distance += ray_step;
     }
-    
-    // Si aucun mur n'est détecté dans la distance maximale
-    printf("Aucun mur détecté dans un rayon de %f unités.\n", distance);
+    mlx_put_image_to_window(game->mlx3d, game->wdw3d, game->img3d, 0, 0);
 }
+
+
+
+// Fonction qui lance un rayon selon un angle donné et renvoie la distance perpendiculaire au mur
+// game->px et game->py représentent la position du joueur en coordonnées de grille (float)
+// game->cube->map est un tableau de chaînes, où '1' indique un mur
+
 
 int mng_input(int keysym, t_game *game, t_cube *cube)
 {
@@ -212,7 +310,7 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
 	int player_size = 10;
 	int offset = (cell_size - player_size) / 2;
 
-    if (keysym == 65307) // Touche Échap -> Quitte //
+    if (keysym == 65307) // Touche mÉchap -> Quitte //
     {
         if (game->mlx && game->wdw)
             mlx_destroy_window(game->mlx, game->wdw);
@@ -235,6 +333,7 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
 		//draw_line_positif(game);
 		draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0xFF0000);
         mlx_put_image_to_window(game->mlx, game->wdw, game->img, 0, 0);
+		ray_tracer(game);
     }
 	else if (keysym == 115) // Touche S -> Reculer //
     {
@@ -248,6 +347,7 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
 		game->py -= game->pdy;
 		draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0xFF0000);
         mlx_put_image_to_window(game->mlx, game->wdw, game->img, 0, 0);
+		ray_tracer(game);
     }
 	else if (keysym == 97) // Touche A -> Gauche
     {
@@ -261,6 +361,7 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
 		//draw_line_positif(game);
 		draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0xFF0000);
         mlx_put_image_to_window(game->mlx, game->wdw, game->img, 0, 0);
+		ray_tracer(game);
     }
 	else if (keysym == 100) // Touche D -> Droite
     {
@@ -275,12 +376,10 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
 		//draw_line_positif(game);
 		draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0xFF0000);
         mlx_put_image_to_window(game->mlx, game->wdw, game->img, 0, 0);
+		ray_tracer(game);
     }
-	ray_tracer(game);
     return 0;
 }
-
-
 
 void	graph_main(t_cube *cube, t_texture *skin)
 {
@@ -288,6 +387,7 @@ void	graph_main(t_cube *cube, t_texture *skin)
 	int		img_w;
 	int		img_h;
 
+	
 	game.pdx = cos(game.pa) * 0.10;
 	game.pdy = sin(game.pa) * 0.10;
 	game.cube = cube;
@@ -297,12 +397,17 @@ void	graph_main(t_cube *cube, t_texture *skin)
 	game.py = cube->y_plr;
 	game.angle = 0;
 	game.speed = 1.4;
-		game.mlx = mlx_init();
-	game.wdw = mlx_new_window(game.mlx, game.len_x * 100, game.len_y * 100, "cube3D");
+	game.mlx = mlx_init();
+	game.mlx3d = mlx_init();
+	game.wdw = mlx_new_window(game.mlx, game.len_x * 100, game.len_y * 100, "Map");
+	game.wdw3d = mlx_new_window(game.mlx3d, game.len_x * 100, game.len_y * 100, "cube3D");
+	
 	
 	game.img = mlx_new_image(game.mlx, game.len_x * 100, game.len_y * 100);
 	game.addr = mlx_get_data_addr(game.img, &game.bit_per_pixel, &game.line_length, &game.endian);
 	
+	game.img3d = mlx_new_image(game.mlx3d, game.len_x * 100, game.len_y * 100);
+	game.addr3d = mlx_get_data_addr(game.img3d, &game.bit_per_pixel3d, &game.line_length3d, &game.endian3d);
 	/*
 	game->g_NO = mlx_xpm_file_to_image(game->mlx, skin->NO, &img_w, &img_h);
 	game->g_SO = mlx_xpm_file_to_image(game->mlx, skin->SO, &img_w, &img_h);

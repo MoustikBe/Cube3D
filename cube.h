@@ -38,12 +38,19 @@ typedef struct t_game
 {
 	/* Display */
 	void	*mlx;
+	void	*mlx3d;
 	void	*wdw;
+	void	*wdw3d;
 	void	*img;
+	void	*img3d;
 	char	*addr;
+	char	*addr3d;
     int     endian;
 	int     line_length;
 	int		bit_per_pixel;
+	int     line_length3d;
+	int		bit_per_pixel3d;
+	int     endian3d;
 
 	char **map;
 	float	angle;
