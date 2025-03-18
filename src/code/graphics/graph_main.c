@@ -173,81 +173,72 @@ void clean_line(t_game *game)
 		i++;
 	}
 }
-float cast_ray(t_game *game, float ray_angle)
+#include <math.h>   // Pour cos, sin, fabs, floor, etc.
+#include <stdio.h>  // Pour printf (debug)
+
+float cast_ray(t_game *game, float ray_angle, int *mapX, int *mapY, int *side)
 {
-    // Position de départ (position du joueur)
+    // Position de départ (joueur)
     float posX = game->px;
     float posY = game->py;
-    
-    // Vecteur direction du rayon
+
+    // Vecteur direction unitaire
     float rayDirX = cos(ray_angle);
     float rayDirY = sin(ray_angle);
-    
-    // Coordonnées de la case où se trouve le joueur
-    int mapX = (int)posX;
-    int mapY = (int)posY;
-    
-    // Calcul des distances à parcourir pour passer d'une case à l'autre en X et Y
-    float deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1.0 / rayDirX);
-    float deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1.0 / rayDirY);
-    
-    // Initialisation des pas et des distances latérales (sideDist)
-    int stepX, stepY;
-    float sideDistX, sideDistY;
-    
-    if (rayDirX < 0)
-    {
-        stepX = -1;
-        sideDistX = (posX - mapX) * deltaDistX;
-    }
-    else
-    {
-        stepX = 1;
-        sideDistX = (mapX + 1.0 - posX) * deltaDistX;
-    }
-    
-    if (rayDirY < 0)
-    {
-        stepY = -1;
-        sideDistY = (posY - mapY) * deltaDistY;
-    }
-    else
-    {
-        stepY = 1;
-        sideDistY = (mapY + 1.0 - posY) * deltaDistY;
-    }
-    
-    // Variable pour savoir sur quel côté le mur a été touché (0 pour un côté vertical, 1 pour un côté horizontal)
-    int side = 0;
+
+    // Coordonnées de grille
+    *mapX = (int)posX;
+    *mapY = (int)posY;
+
+    // Distances pour passer d'une case à l'autre
+    float deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1.0f / rayDirX);
+    float deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1.0f / rayDirY);
+
+    // Détermination du sens d'avancée
+    int stepX = (rayDirX < 0) ? -1 : 1;
+    int stepY = (rayDirY < 0) ? -1 : 1;
+
+    // Distances initiales jusqu'à la première frontière de case
+    float sideDistX = (rayDirX < 0) 
+        ? (posX - *mapX) * deltaDistX 
+        : (*mapX + 1.0f - posX) * deltaDistX;
+
+    float sideDistY = (rayDirY < 0) 
+        ? (posY - *mapY) * deltaDistY 
+        : (*mapY + 1.0f - posY) * deltaDistY;
+
     int hit = 0;
-    
-    // Boucle DDA : avance case par case jusqu'à rencontrer un mur ('1')
+    *side = 0;
+
+    // DDA : on avance case par case
     while (!hit)
     {
+        // On regarde si on avance en X ou en Y
         if (sideDistX < sideDistY)
         {
             sideDistX += deltaDistX;
-            mapX += stepX;
-            side = 0;
+            *mapX += stepX;
+            *side = 0; // Mur vertical
         }
         else
         {
             sideDistY += deltaDistY;
-            mapY += stepY;
-            side = 1;
+            *mapY += stepY;
+            *side = 1; // Mur horizontal
         }
-        // Vérifie si la case courante contient un mur
-        if (game->cube->map[mapY][mapX] == '1')
+
+        // On sort si on touche un mur
+        if (game->map[*mapY][*mapX] == '1')
             hit = 1;
     }
-    
-    // Calcul de la distance perpendiculaire au mur pour corriger l'effet fish-eye
+
+    // Distance brute (non corrigée) jusqu'au mur
     float perpWallDist;
-    if (side == 0)
-        perpWallDist = (mapX - posX + (1 - stepX) / 2.0) / rayDirX;
+    if (*side == 0)
+        perpWallDist = (*mapX - posX + (1 - stepX) / 2.0f) / rayDirX;
     else
-        perpWallDist = (mapY - posY + (1 - stepY) / 2.0) / rayDirY;
-    
+        perpWallDist = (*mapY - posY + (1 - stepY) / 2.0f) / rayDirY;
+
     return perpWallDist;
 }
 
@@ -265,33 +256,91 @@ void clear_buffer3d(t_game *game, int screenWidth, int screenHeight, int bgColor
 
 void ray_tracer(t_game *game)
 {
-    int screenWidth = game->len_x * 100;
-    int screenHeight = game->len_y * 100;
-    float FOV = 60.0 * (PI / 180.0);
+    // Dimensions de l'écran de rendu
+    int screenWidth = game->len_x * 100;  
+    int screenHeight = game->len_y * 100; 
 
-    // Efface le buffer 3D en remplissant toute l'image d'une couleur de fond (par exemple, un gris foncé)
-    clear_buffer3d(game, screenWidth, screenHeight, 0x333333);
+    // Champ de vision (60° en radians)
+    float FOV = 60.0f * (PI / 180.0f);
 
+    // On efface l'image 3D (optionnel, si tu as déjà une fonction clear)
+    for (int y = 0; y < screenHeight; y++)
+    {
+        for (int x = 0; x < screenWidth; x++)
+        {
+            // On remplit le fond en gris par exemple
+            my_mlx_pixel_put3D(game, x, y, 0x333333);
+        }
+    }
+
+    // Boucle sur chaque colonne
     for (int x = 0; x < screenWidth; x++)
     {
-        float ray_angle = game->pa - (FOV / 2) + ((float)x / screenWidth) * FOV;
-        float perpWallDist = cast_ray(game, ray_angle);
-		float correctedDist = perpWallDist * cos(ray_angle - game->pa);
-        int lineHeight = (int)(screenHeight / correctedDist);
+        // Calcul de l'angle du rayon
+        float ray_angle = game->pa - (FOV / 2.0f) + ((float)x / (float)screenWidth) * FOV;
+
+        // Lancer de rayon
+        int mapX, mapY, side;
+        float perpWallDist = cast_ray(game, ray_angle, &mapX, &mapY, &side);
+
+        // Correction fish-eye
+        float correctedDist = perpWallDist * cos(ray_angle - game->pa);
+
+        // Évite distance trop petite
+        if (correctedDist < 0.1f)
+            correctedDist = 0.1f;
+
+        // Calcul de la hauteur de la colonne
+        int lineHeight = (int)((float)screenHeight / correctedDist);
 
         int drawStart = -lineHeight / 2 + screenHeight / 2;
         if (drawStart < 0)
             drawStart = 0;
+
         int drawEnd = lineHeight / 2 + screenHeight / 2;
         if (drawEnd >= screenHeight)
             drawEnd = screenHeight - 1;
-        int color = 0x00FF00;
 
+        // --- GESTION DE LA TEXTURE ---
+        t_img *texture = &game->wall_texture;
+
+        // Calcul de la coordonnée X sur la texture (wallX)
+        // On utilise la position "impact" sur l'axe orthogonal
+        // side=0 -> mur vertical -> on se base sur posY + distance * rayDirY
+        // side=1 -> mur horizontal -> on se base sur posX + distance * rayDirX
+        float rayDirX = cos(ray_angle);
+        float rayDirY = sin(ray_angle);
+
+        float wallX;
+        if (side == 0)
+            wallX = game->py + perpWallDist * rayDirY;
+        else
+            wallX = game->px + perpWallDist * rayDirX;
+
+        wallX -= floor(wallX); // On ne garde que la partie fractionnaire
+        int textureX = (int)(wallX * (float)texture->width);
+
+        // Inversion si on regarde "de l'autre côté"
+        if ((side == 0 && rayDirX > 0) || (side == 1 && rayDirY < 0))
+            textureX = texture->width - textureX - 1;
+
+        // Dessin de la colonne
         for (int y = drawStart; y < drawEnd; y++)
         {
+            // Position Y sur la texture
+            int d = (y - screenHeight / 2 + lineHeight / 2);
+            int textureY = d * texture->height / lineHeight;
+
+            // Récupération de la couleur dans la texture
+            int color = texture->data[textureY * texture->width + textureX];
+
+            // Dessin du pixel
             my_mlx_pixel_put3D(game, x, y, color);
         }
     }
+
+    // Envoi de l'image à la fenêtre
+    // (tu peux adapter selon ton code)
     mlx_put_image_to_window(game->mlx3d, game->wdw3d, game->img3d, 0, 0);
 }
 
@@ -381,6 +430,18 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
     return 0;
 }
 
+int load_wall_texture(t_game *game, char *texture_path)
+{
+    game->wall_texture.img = mlx_xpm_file_to_image(game->mlx3d, texture_path, &game->wall_texture.width, &game->wall_texture.height);
+    if (!game->wall_texture.img)
+        return (printf("Error loading wall texture: %s\n", texture_path), 1);
+    
+    game->wall_texture.data = (int *)mlx_get_data_addr(game->wall_texture.img, &game->wall_texture.bpp,&game->wall_texture.line_len, &game->wall_texture.endian);
+    return 0;
+}
+
+
+
 void	graph_main(t_cube *cube, t_texture *skin)
 {
 	t_game	game;
@@ -402,7 +463,7 @@ void	graph_main(t_cube *cube, t_texture *skin)
 	game.wdw = mlx_new_window(game.mlx, game.len_x * 100, game.len_y * 100, "Map");
 	game.wdw3d = mlx_new_window(game.mlx3d, game.len_x * 100, game.len_y * 100, "cube3D");
 	
-	
+	if (load_wall_texture(&game, "src/texture/eagle.xpm"));
 	game.img = mlx_new_image(game.mlx, game.len_x * 100, game.len_y * 100);
 	game.addr = mlx_get_data_addr(game.img, &game.bit_per_pixel, &game.line_length, &game.endian);
 	

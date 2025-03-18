@@ -34,6 +34,18 @@ typedef struct t_cube
 	int		player;
 }	t_cube;
 
+typedef struct s_img
+{
+    void    *img;
+    int     *data;
+    int     width;
+    int     height;
+    int     bpp;
+    int     line_len;
+    int     endian;
+} t_img;
+
+
 typedef struct t_game
 {
 	/* Display */
@@ -51,6 +63,8 @@ typedef struct t_game
 	int     line_length3d;
 	int		bit_per_pixel3d;
 	int     endian3d;
+	char    *wall_texutre;
+	t_img   wall_texture;
 
 	char **map;
 	float	angle;
