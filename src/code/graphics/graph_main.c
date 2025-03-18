@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 20:14:24 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/18 12:42:21 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:47:54 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,12 @@ void draw_map(t_game *game, char **map)
 			if(map[i][j] == '0')
 			{
 				//printf("drawing 0 -> %d\n", j * cell_size);
-				draw_square(game, j * cell_size, i * cell_size, cell_size, 0x000000);
+				draw_square(game, j * cell_size, i * cell_size, cell_size + 5, 0x000000);
 			}
 			else if(map[i][j] == '1')
 			{
 				//printf("drawing 1 -> %d\n", i * cell_size);
-				draw_square(game, j * cell_size, i * cell_size, cell_size - 5, 0xFFFFFF);
+				draw_square(game, j * cell_size + 10, i * cell_size + 10, cell_size - 5, 0xFFFFFF);
 			}
 			else if(map[i][j] == 'N')
 			{
