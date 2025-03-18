@@ -1,18 +1,18 @@
-NO src/texture/Ice.xpm
-SO src/texture/Lava.xpm
-EA src/texture/Tree.xpm
+NO src/texture/eagle.xpm
+SO src/texture/red.xpm
+EA src/texture/purplestone.xpm
 
 F       55 , 255 , 255
 
 C    0,0,0
 
-WE src/texture/Ice.xpm
+WE src/texture/greystone.xpm
 
-1111111111
-10000000111111
-10000000110111
-1N00000011111
+111111111
 100000001
+1000E0001
 100000001
-100000001
+100011001
+100001001
+100111001
 111111111

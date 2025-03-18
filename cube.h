@@ -46,9 +46,12 @@ typedef struct s_img
 } t_img;
 
 
+
 typedef struct t_game
 {
 	/* Display */
+	int		width;
+	int		height;
 	void	*mlx;
 	void	*mlx3d;
 	void	*wdw;
@@ -64,7 +67,19 @@ typedef struct t_game
 	int		bit_per_pixel3d;
 	int     endian3d;
 	char    *wall_texutre;
-	t_img   wall_texture;
+	t_img tex_N;
+    t_img tex_S;
+    t_img tex_E;
+    t_img tex_W;
+
+	int ceiling_color;
+	int floor_color;
+
+	int front;
+	int back;
+	int r_left;
+	int r_right;
+	int exit;
 
 	char **map;
 	float	angle;
