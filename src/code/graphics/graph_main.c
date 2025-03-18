@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 20:14:24 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/18 12:47:54 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:57:09 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,9 +244,13 @@ void ray_tracer(t_game *game)
     int screenHeight = game->height / 2;  // Par exemple
     float FOV = 60.0f * (PI / 180.0f);
 
+	// Intialisation pour remplacements massif des boucles for // 
+	int x;
+	int y;
 
+	x = 0;
     // Pour chaque colonne de l'écran
-    for (int x = 0; x < screenWidth; x++)
+    while (x < screenWidth)
     {
         float ray_angle = game->pa - (FOV / 2.0f) + ((float)x / (float)screenWidth) * FOV;
 
@@ -268,9 +272,11 @@ void ray_tracer(t_game *game)
             drawEnd = screenHeight - 1;
 
         // Dessin du plafond pour la colonne x
-        for (int y = 0; y < drawStart; y++)
+        y = 0;
+		while (y < drawStart)
         {
             my_mlx_pixel_put3D(game, x, y, game->ceiling_color);
+			y++;
         }
 
         // Sélection de la texture pour le mur en fonction de la face
@@ -305,19 +311,24 @@ void ray_tracer(t_game *game)
             textureX = texture->width - textureX - 1;
 
         // Dessin du mur pour la colonne x
-        for (int y = drawStart; y < drawEnd; y++)
+        y = drawStart;
+		while (y < drawEnd)
         {
             int d = (y - (screenHeight / 2) + (lineHeight / 2));
             int textureY = (d * texture->height) / lineHeight;
             int color = texture->data[textureY * texture->width + textureX];
             my_mlx_pixel_put3D(game, x, y, color);
+			y++;
         }
 
         // Dessin du sol pour la colonne x
-        for (int y = drawEnd; y < screenHeight; y++)
+        y = drawEnd; 
+		while (y < screenHeight)
         {
             my_mlx_pixel_put3D(game, x, y, game->floor_color);
+			y++;
         }
+		x++;
     }
 
     mlx_put_image_to_window(game->mlx3d, game->wdw3d, game->img3d, 0, 0);
