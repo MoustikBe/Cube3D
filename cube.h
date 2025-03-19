@@ -9,6 +9,9 @@
 # include <math.h>
 // # --- Library --- # // 
 
+// # --- Macro --- # // 
+#define PI 3.1415926
+
 // # --- struct --- # //
 typedef struct t_texture
 {
@@ -125,10 +128,19 @@ typedef struct t_game
 // -- Graphics -- //
 // - graph_main.c - //
 void	graph_main(t_cube *cube, t_texture *skin);
+void 	ray_tracer(t_game *game);
 // - graph_init.c - //
 void	graph_init(t_game *game, t_cube *cube, t_texture *skin);
 int		rgb_to_hex(int *rgb);
 int		load_all_texture(t_texture *skin, t_game *game);
+// - graph_gameplay.c - //
+int		exit_game(t_game *game);
+int		game_loop(t_game *game);
+// - graph_moov.c - //
+int		moov_front(t_game *game, float new_x, float new_y);
+int		moov_back(t_game *game, float new_x, float new_y);
+void	rotate_left(t_game *game);
+void	rotate_right(t_game *game);
 
 // -- Parsing -- //
 // - pars_main.c - //

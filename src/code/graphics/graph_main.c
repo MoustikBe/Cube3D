@@ -6,22 +6,13 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 20:14:24 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/19 12:57:03 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/19 13:11:06 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../cube.h"
 #include "../../libs/libft/libft.h"
 #include "../../libs/minilibx-linux/mlx.h"
-
-#define PI 3.1415926
-
-int	exit_game(t_game *game)
-{
-		mlx_destroy_window(game->mlx3d, game->wdw3d);
-		free(game->mlx3d);
-		exit(1);
-}
 
 void my_mlx_pixel_put3D(t_game *game, int x, int y, int color)
 {
@@ -195,71 +186,6 @@ void ray_tracer(t_game *game)
 // game->cube->map est un tableau de chaînes, où '1' indique un mur
 
 
-int mng_input(int keysym, t_game *game, t_cube *cube)
-{
-    float new_x = 0;
-    float new_y = 0;
-	int cell_size = 20;
-	int player_size = 2;
-	int offset = (cell_size - player_size) / 2;
-
-    if (game->exit)
-    {
-		mlx_destroy_window(game->mlx3d, game->wdw3d);
-        free(game->mlx3d);
-        exit(1);
-    }
-    if (game->front) // Touche W -> Avancer //
-    {
-		new_x = game->px + game->pdx;
-		new_y = game->py + game->pdy;
-		if(game->cube->map[(int)(new_y)][(int)(new_x)] == '1')
-		{
-			//printf("X direction -> %f | Y direction -> %f \n", game->pdx, game->pdy);
-			return(2);
-        }
-		else
-		{
-			game->px = new_x;
-			game->py = new_y;
-			ray_tracer(game);
-		}
-    }
-	if (game->back) // Touche S -> Reculer //
-    {
-		
-		new_x = game->px - game->pdx;
-		new_y = game->py - game->pdy;
-		if(game->cube->map[(int)(new_y)][(int)(new_x)] == '1')
-			return(2);
-		else
-		{
-			game->px = new_x;
-			game->py = new_y;
-			ray_tracer(game);
-		}
-	}
-	if (game->r_left) // Touche A -> Gauche
-    {
-		game->pa -= 0.1;
-		if(game->pa < 0)
-			game->pa += 2*PI;
-		game->pdx = cos(game->pa) * 0.05;
-		game->pdy = sin(game->pa) * 0.05;
-		ray_tracer(game);
-    }
-	if (game->r_right) // Touche D -> Droite
-    {
-		game->pa += 0.1;
-		if(game->pa > 2*PI)
-			game->pa -= 2*PI;
-		game->pdx = cos(game->pa) * 0.05;
-		game->pdy = sin(game->pa) * 0.05;
-		ray_tracer(game);
-    }
-    return 0;
-}
-
 int ft_key_press(int keycode, t_game *game)
 {
 	if(keycode == 119)
@@ -285,13 +211,6 @@ int ft_key_release(int keycode, t_game *game)
 		game->r_right = 0;
 	else if(keycode == 65307)
 		game->exit = 0;
-}
-
-int game_loop(t_game *game)
-{
-	if(game->front || game->back || game->r_left || game->r_right || game->exit)
-		mng_input(0,game,game->cube);
-	return(0);
 }
 
 void	graph_main(t_cube *cube, t_texture *skin)

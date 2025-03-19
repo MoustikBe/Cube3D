@@ -27,6 +27,8 @@ OBJ_DIR		=	./obj
 SRC			=	$(SRC_DIR)/code/main.c \
 				$(SRC_DIR)/code/graphics/graph_main.c \
 				$(SRC_DIR)/code/graphics/graph_init.c \
+				$(SRC_DIR)/code/graphics/graph_gameplay.c \
+				$(SRC_DIR)/code/graphics/graph_moov.c \
 				$(SRC_DIR)/code/parsing/pars_algo.c \
 				$(SRC_DIR)/code/parsing/pars_color.c \
 				$(SRC_DIR)/code/parsing/pars_main.c \
