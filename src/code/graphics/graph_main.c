@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 20:14:24 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/19 12:25:56 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:30:31 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,6 @@ void	searching_data(t_cube *cube, t_game *game)
 	game->len_x = prev_x;
 }
 
-void my_mlx_pixel_put(t_game *game, int x, int y, int color)
-{
-    if (x < 0 || y < 0 || x >= game->len_x * 20 || y >= game->len_y * 20)
-        return; // Évite un accès mémoire hors limites
-
-    char *dst = game->addr + (y * game->line_length + x * (game->bit_per_pixel / 8));
-    *(unsigned int*)dst = color;
-}
-
 void my_mlx_pixel_put3D(t_game *game, int x, int y, int color)
 {
     if (x < 0 || y < 0 || x >= game->width / 2.5 || y >= game->height / 2)
@@ -64,116 +55,6 @@ void my_mlx_pixel_put3D(t_game *game, int x, int y, int color)
 
     char *dst = game->addr3d + (y * game->line_length3d + x * (game->bit_per_pixel3d / 8));
     *(unsigned int*)dst = color;
-}
-
-void draw_square(t_game *game, int x, int y, int size, int color)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while(i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			my_mlx_pixel_put(game, x + i, y + j, color);	
-			j++;
-		}
-		i++;	
-	}
-}
-
-void draw_map(t_game *game, char **map)
-{
-	int i;
-	int j;
-	int cell_size = 20;
-	int player_size = 2;
-	int offset = (cell_size - player_size) / 2;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if(map[i][j] == '0')
-			{
-				//printf("drawing 0 -> %d\n", j * cell_size);
-				draw_square(game, j * cell_size, i * cell_size, cell_size + 5, 0x000000);
-			}
-			else if(map[i][j] == '1')
-			{
-				//printf("drawing 1 -> %d\n", i * cell_size);
-				draw_square(game, j * cell_size + 10, i * cell_size + 10, cell_size - 5, 0xFFFFFF);
-			}
-			else if(map[i][j] == 'N')
-			{
-				draw_square(game, j * cell_size, i * cell_size, cell_size, 0x000000);
-				game->px = (float)j;
-				game->py = (float)i;
-				draw_square(game, j * cell_size, i * cell_size, player_size, 0xFF0000);
-			}
-			j++;
-		}
-		i++;
-	}
-	mlx_put_image_to_window(game->mlx3d, game->wdw3d, game->img, 0, 0);
-}
-
-void draw_line_negatif(t_game *game)
-{
-	// Ce qu'on fait ici c'est avance h24 de 10 alors on fait sa pour la ligne
-	float x = game->px;
-	float y = game->py;
-	int cell_size = 100;
-	int offset = (cell_size - 10) / 2;
-	int i = 0;
-
-	while (i < 6)
-	{
-		x -= game->pdx;
-		y -= game->pdy;
-		draw_square(game, x * cell_size + offset, y * cell_size + offset, 5, 0xFF0000);
-		i++;
-	}
-}
-
-void draw_line_positif(t_game *game)
-{
-	// Ce qu'on fait ici c'est avance h24 de 10 alors on fait sa pour la ligne
-	float x = game->px;
-	float y = game->py;
-	int cell_size = 100;
-	int offset = (cell_size - 10) / 2;
-	int i = 0;
-
-	while (i < 6)
-	{
-		x += game->pdx;
-		y += game->pdy;
-		draw_square(game, x * cell_size + offset, y * cell_size + offset, 100, 0xFF0000);
-		i++;
-	}
-}
-
-void clean_line(t_game *game)
-{
-	// Ce qu'on fait ici c'est avance h24 de 10 alors on fait sa pour la ligne
-	float x = game->px;
-	float y = game->py;
-	int cell_size = 100;
-	int offset = (cell_size - 10) / 2;
-	int i = 0;
-
-	while (i < 6)
-	{
-		x += game->pdx;
-		y += game->pdy;
-		draw_square(game, x * cell_size + offset, y * cell_size + offset, 5, 0x000000);
-		i++;
-	}
 }
 
 float cast_ray(t_game *game, float ray_angle,
@@ -350,13 +231,11 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
     if (game->exit)
     {
 		mlx_destroy_window(game->mlx3d, game->wdw3d);
-		//if (game->mlx && game->wdw)
         free(game->mlx3d);
         exit(1);
     }
     if (game->front) // Touche W -> Avancer //
     {
-		//clean_line(game);
 		new_x = game->px + game->pdx;
 		new_y = game->py + game->pdy;
 		if(game->cube->map[(int)(new_y)][(int)(new_x)] == '1')
@@ -366,17 +245,13 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
         }
 		else
 		{
-			draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0x000000);
 			game->px = new_x;
 			game->py = new_y;
-			//draw_line_positif(game);
-			draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0xFF0000);
 			ray_tracer(game);
 		}
     }
 	if (game->back) // Touche S -> Reculer //
     {
-		//clean_line(game);
 		
 		new_x = game->px - game->pdx;
 		new_y = game->py - game->pdy;
@@ -384,41 +259,29 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
 			return(2);
 		else
 		{
-			draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0x000000);
 			game->px = new_x;
 			game->py = new_y;
-			draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0xFF0000);
 			ray_tracer(game);
 		}
 	}
 	if (game->r_left) // Touche A -> Gauche
     {
-		//clean_line(game); 
-        draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0x000000);
 		game->pa -= 0.1;
 		if(game->pa < 0)
 			game->pa += 2*PI;
 		game->pdx = cos(game->pa) * 0.05;
 		game->pdy = sin(game->pa) * 0.05;
-		//draw_line_positif(game);
-		draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0xFF0000);
 		ray_tracer(game);
     }
 	if (game->r_right) // Touche D -> Droite
     {
-		//clean_line(game);
-        draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0x000000);
-		
 		game->pa += 0.1;
 		if(game->pa > 2*PI)
 			game->pa -= 2*PI;
 		game->pdx = cos(game->pa) * 0.05;
 		game->pdy = sin(game->pa) * 0.05;
-		//draw_line_positif(game);
-		draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0xFF0000);
 		ray_tracer(game);
     }
-	mlx_put_image_to_window(game->mlx3d, game->wdw3d, game->img, 0, 0);
     return 0;
 }
 
@@ -496,7 +359,6 @@ void	graph_main(t_cube *cube, t_texture *skin)
 	game.pdx = cos(game.pa) * 0.05;
 	game.pdy = sin(game.pa) * 0.05;
 	game.cube = cube;
-	// Still need to define len_x et len_y //
 	searching_data(cube, &game);
 	game.px = cube->x_plr;
 	game.py = cube->y_plr;
@@ -504,35 +366,17 @@ void	graph_main(t_cube *cube, t_texture *skin)
 	game.speed = 1.4;
 	game.mlx3d = mlx_init();
 	mlx_get_screen_size(game.mlx3d, &game.width, &game.height);
-	
-	/* Mini_map */
-	//game.wdw = mlx_new_window(game.mlx3d, game.len_x * 20, game.len_y * 20, "Map");
 	game.wdw3d = mlx_new_window(game.mlx3d, game.width / 2.5, game.height / 2, "cube3D");
-	/* Mini_map */
-	
 	if (load_all_texture(skin, &game))
 	    return ;
 	game.img = mlx_new_image(game.mlx3d, game.len_x * 20, game.len_y * 20);
 	game.addr = mlx_get_data_addr(game.img, &game.bit_per_pixel, &game.line_length, &game.endian);
-	
 	game.img3d = mlx_new_image(game.mlx3d, game.width / 2.5, game.height / 2);
 	game.addr3d = mlx_get_data_addr(game.img3d, &game.bit_per_pixel3d, &game.line_length3d, &game.endian3d);
-	/*
-	game->g_NO = mlx_xpm_file_to_image(game->mlx, skin->NO, &img_w, &img_h);
-	game->g_SO = mlx_xpm_file_to_image(game->mlx, skin->SO, &img_w, &img_h);
-	game->g_EA = mlx_xpm_file_to_image(game->mlx, skin->EA, &img_w, &img_h);
-	game->g_WE = mlx_xpm_file_to_image(game->mlx, skin->WE, &img_w, &img_h);
-	*/
 	ray_tracer(&game);
-	draw_map(&game, cube->map);
-	//printf("\n y -> %f x-> %f pdx-> %f pdy-> %f\n", game.py, game.px, game.pdx, game.pdy);
-	//mlx_key_hook(game.wdw, mng_input, &game);
-	//mlx_hook(game.wdw, 2, 1L << 0, mng_input, &game);
-	//printf("valeur de w MAJ -> %d\n", game.front);
 	mlx_hook(game.wdw3d, 17, 0, exit_game, &game);
 	mlx_hook(game.wdw3d, 2, 1L << 0, ft_key_press, &game);
 	mlx_loop_hook(game.mlx3d, game_loop, &game);
 	mlx_hook(game.wdw3d, 3, 1L << 1, ft_key_release, &game);
-	//printf("valeur de w MAJ -> %d\n", game.front);
 	mlx_loop(game.mlx3d);
 }
