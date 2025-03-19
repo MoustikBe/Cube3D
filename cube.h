@@ -71,6 +71,7 @@ typedef struct t_game
     t_img tex_S;
     t_img tex_E;
     t_img tex_W;
+	t_img mini_map;
 
 	int ceiling_color;
 	int floor_color;

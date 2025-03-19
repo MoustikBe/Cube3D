@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 20:14:24 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/18 12:57:09 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:17:58 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ int rgb_to_hex(int *rgb)
 
 int	exit_game(t_game *game)
 {
-		mlx_destroy_window(game->mlx, game->wdw);
 		mlx_destroy_window(game->mlx3d, game->wdw3d);
-		free(game->mlx);
 		free(game->mlx3d);
 		exit(1);
 }
@@ -52,7 +50,7 @@ void	searching_data(t_cube *cube, t_game *game)
 
 void my_mlx_pixel_put(t_game *game, int x, int y, int color)
 {
-    if (x < 0 || y < 0 || x >= game->len_x * 100 || y >= game->len_y * 100)
+    if (x < 0 || y < 0 || x >= game->len_x * 20 || y >= game->len_y * 20)
         return; // Évite un accès mémoire hors limites
 
     char *dst = game->addr + (y * game->line_length + x * (game->bit_per_pixel / 8));
@@ -90,8 +88,8 @@ void draw_map(t_game *game, char **map)
 {
 	int i;
 	int j;
-	int cell_size = 100;
-	int player_size = 10;
+	int cell_size = 20;
+	int player_size = 2;
 	int offset = (cell_size - player_size) / 2;
 
 	i = 0;
@@ -121,7 +119,7 @@ void draw_map(t_game *game, char **map)
 		}
 		i++;
 	}
-	mlx_put_image_to_window(game->mlx, game->wdw, game->img, 0, 0);
+	mlx_put_image_to_window(game->mlx3d, game->wdw3d, game->img, 0, 0);
 }
 
 void draw_line_negatif(t_game *game)
@@ -345,8 +343,8 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
 {
     float new_x = 0;
     float new_y = 0;
-	int cell_size = 100;
-	int player_size = 10;
+	int cell_size = 20;
+	int player_size = 2;
 	int offset = (cell_size - player_size) / 2;
 
 	//printf("->%d\n", game->exit);
@@ -355,9 +353,7 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
         //if (game->mlx3d && game->wdw3d)
 		mlx_destroy_window(game->mlx3d, game->wdw3d);
 		//if (game->mlx && game->wdw)
-		mlx_destroy_window(game->mlx, game->wdw);
         free(game->mlx3d);
-		free(game->mlx);
         exit(1);
     }
     if (game->front) // Touche W -> Avancer //
@@ -377,7 +373,6 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
 			game->py = new_y;
 			//draw_line_positif(game);
 			draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0xFF0000);
-        	mlx_put_image_to_window(game->mlx, game->wdw, game->img, 0, 0);
 			ray_tracer(game);
 		}
     }
@@ -395,7 +390,6 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
 			game->px = new_x;
 			game->py = new_y;
 			draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0xFF0000);
-        	mlx_put_image_to_window(game->mlx, game->wdw, game->img, 0, 0);
 			ray_tracer(game);
 		}
 	}
@@ -410,7 +404,6 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
 		game->pdy = sin(game->pa) * 0.05;
 		//draw_line_positif(game);
 		draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0xFF0000);
-        mlx_put_image_to_window(game->mlx, game->wdw, game->img, 0, 0);
 		ray_tracer(game);
     }
 	if (game->r_right) // Touche D -> Droite
@@ -425,9 +418,9 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
 		game->pdy = sin(game->pa) * 0.05;
 		//draw_line_positif(game);
 		draw_square(game, game->px * cell_size, game->py * cell_size, player_size, 0xFF0000);
-        mlx_put_image_to_window(game->mlx, game->wdw, game->img, 0, 0);
 		ray_tracer(game);
     }
+	mlx_put_image_to_window(game->mlx3d, game->wdw3d, game->img, 0, 0);
     return 0;
 }
 
@@ -511,15 +504,17 @@ void	graph_main(t_cube *cube, t_texture *skin)
 	game.py = cube->y_plr;
 	game.angle = 0;
 	game.speed = 1.4;
-	game.mlx = mlx_init();
 	game.mlx3d = mlx_init();
 	mlx_get_screen_size(game.mlx3d, &game.width, &game.height);
-	game.wdw = mlx_new_window(game.mlx, game.len_x * 100, game.len_y * 100, "Map");
+	
+	/* Mini_map */
+	//game.wdw = mlx_new_window(game.mlx3d, game.len_x * 20, game.len_y * 20, "Map");
 	game.wdw3d = mlx_new_window(game.mlx3d, game.width / 2.5, game.height / 2, "cube3D");
+	/* Mini_map */
 	
 	if (load_all_texture(skin, &game))
 	    return ;
-	game.img = mlx_new_image(game.mlx, game.len_x * 100, game.len_y * 100);
+	game.img = mlx_new_image(game.mlx3d, game.len_x * 20, game.len_y * 20);
 	game.addr = mlx_get_data_addr(game.img, &game.bit_per_pixel, &game.line_length, &game.endian);
 	
 	game.img3d = mlx_new_image(game.mlx3d, game.width / 2.5, game.height / 2);
