@@ -125,6 +125,10 @@ typedef struct t_game
 // -- Graphics -- //
 // - graph_main.c - //
 void	graph_main(t_cube *cube, t_texture *skin);
+void	searching_data(t_cube *cube, t_game *game);
+int rgb_to_hex(int *rgb);
+// - graph_init.c - //
+void graph_init(t_game *game, t_cube *cube, t_texture *skin);
 
 // -- Parsing -- //
 // - pars_main.c - //

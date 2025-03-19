@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:09:25 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/08 20:08:39 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:43:51 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int saving_data(t_cube *cube, char *line, int index)
 				return(ft_printf("Error duplicate component\n"));
 			cube->y_plr = index;
 			cube->x_plr = i;
+			cube->player = line[i];
 		}
 		if(line[i] == 'N')
 		{

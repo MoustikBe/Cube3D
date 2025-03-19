@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 20:14:24 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/19 12:30:31 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:36:53 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,34 +345,10 @@ int game_loop(t_game *game)
 void	graph_main(t_cube *cube, t_texture *skin)
 {
 	t_game	game;
-	int		img_w;
-	int		img_h;
 
-	game.front = 0;
-	game.back = 0;
-	game.r_left = 0;
-	game.r_right = 0;
-	game.exit = 0;
-	game.floor_color = rgb_to_hex(skin->F);
-	game.ceiling_color = rgb_to_hex(skin->C);
-	game.pa = 1.55; // Change en fonction du joueur.
-	game.pdx = cos(game.pa) * 0.05;
-	game.pdy = sin(game.pa) * 0.05;
-	game.cube = cube;
-	searching_data(cube, &game);
-	game.px = cube->x_plr;
-	game.py = cube->y_plr;
-	game.angle = 0;
-	game.speed = 1.4;
-	game.mlx3d = mlx_init();
-	mlx_get_screen_size(game.mlx3d, &game.width, &game.height);
-	game.wdw3d = mlx_new_window(game.mlx3d, game.width / 2.5, game.height / 2, "cube3D");
+	graph_init(&game, cube, skin);
 	if (load_all_texture(skin, &game))
 	    return ;
-	game.img = mlx_new_image(game.mlx3d, game.len_x * 20, game.len_y * 20);
-	game.addr = mlx_get_data_addr(game.img, &game.bit_per_pixel, &game.line_length, &game.endian);
-	game.img3d = mlx_new_image(game.mlx3d, game.width / 2.5, game.height / 2);
-	game.addr3d = mlx_get_data_addr(game.img3d, &game.bit_per_pixel3d, &game.line_length3d, &game.endian3d);
 	ray_tracer(&game);
 	mlx_hook(game.wdw3d, 17, 0, exit_game, &game);
 	mlx_hook(game.wdw3d, 2, 1L << 0, ft_key_press, &game);
