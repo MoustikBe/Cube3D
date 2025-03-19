@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 20:14:24 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/19 12:17:58 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:25:56 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,10 +347,8 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
 	int player_size = 2;
 	int offset = (cell_size - player_size) / 2;
 
-	//printf("->%d\n", game->exit);
-    if (game->exit) // Touche mÉchap -> Quitte //
+    if (game->exit)
     {
-        //if (game->mlx3d && game->wdw3d)
 		mlx_destroy_window(game->mlx3d, game->wdw3d);
 		//if (game->mlx && game->wdw)
         free(game->mlx3d);
