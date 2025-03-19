@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 20:14:24 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/19 12:36:53 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:57:03 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,11 @@
 
 #define PI 3.1415926
 
-
-int rgb_to_hex(int *rgb)
-{
-    return ((rgb[0] & 0xFF) << 16) | ((rgb[1] & 0xFF) << 8) | (rgb[2] & 0xFF);
-}
-
 int	exit_game(t_game *game)
 {
 		mlx_destroy_window(game->mlx3d, game->wdw3d);
 		free(game->mlx3d);
 		exit(1);
-}
-
-void	searching_data(t_cube *cube, t_game *game)
-{
-	int x;
-	int prev_x;
-	int i;
-
-	game->len_y = len_array(cube->map);
-	i = 0;
-	prev_x = ft_strlen(cube->map[i]);
-	while (cube->map[i])
-	{
-		x = ft_strlen(cube->map[i]);
-		if(x > prev_x)
-			prev_x = x;
-		i++;
-	}
-	game->len_x = prev_x;
 }
 
 void my_mlx_pixel_put3D(t_game *game, int x, int y, int color)
@@ -283,29 +258,6 @@ int mng_input(int keysym, t_game *game, t_cube *cube)
 		ray_tracer(game);
     }
     return 0;
-}
-
-int load_texture(t_game *game, t_img *tex, char *path)
-{
-    tex->img = mlx_xpm_file_to_image(game->mlx3d, path, &tex->width, &tex->height);
-    if (!tex->img)
-        return (printf("Error loading wall texture: %s\n", path), 1);
-    tex->data = (int *)mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_len, &tex->endian);
-    return 0;
-}
-
-
-int load_all_texture(t_texture *skin, t_game *game)
-{
-	if(load_texture(game, &game->tex_N, skin->NO))
-		return(ft_printf("Error loading the North texture, verify the path pls\n"));
-	if(load_texture(game, &game->tex_S, skin->SO))
-		return(ft_printf("Error loading the South texture, verify the path pls\n"));
-	if(load_texture(game, &game->tex_E, skin->EA))
-		return(ft_printf("Error loading the East texture, verify the path pls\n"));
-	if(load_texture(game, &game->tex_W, skin->WE))
-		return(ft_printf("Error loading the West texture, verify the path pls\n"));
-	return(0);
 }
 
 int ft_key_press(int keycode, t_game *game)
