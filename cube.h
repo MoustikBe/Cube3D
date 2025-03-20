@@ -121,6 +121,44 @@ typedef struct t_game
 	t_cube	*cube;
 }	t_game;
 
+typedef struct t_ray
+{
+	int		screenWidth;
+	int		screenHeight;
+	float	FOV;
+	int		x;
+	int		y;
+	float	ray_angle;
+	int		mapX;
+	int		mapY;
+	int		side;
+	int		stepX;
+	int		stepY;
+	float	perpWallDist;
+	float	correctedDist;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+	float	rayDirX;
+	float	rayDirY;
+	float	wallX;
+	int		textureX;
+	int		d;
+	int		textureY;
+	int		color;
+	/* Cast_ray */
+	float posX;
+	float posY;
+	float rayDirX2;
+	float rayDirY2;
+	float deltaDistX;
+	float deltaDistY;
+	float sideDistX;
+	float sideDistY;
+	int hit;
+}	t_ray;
+
+
 // # --- struct --- # //
 
 // # --- functions --- # //
@@ -128,7 +166,6 @@ typedef struct t_game
 // -- Graphics -- //
 // - graph_main.c - //
 void	graph_main(t_cube *cube, t_texture *skin);
-void 	ray_tracer(t_game *game);
 // - graph_init.c - //
 void	graph_init(t_game *game, t_cube *cube, t_texture *skin);
 int		rgb_to_hex(int *rgb);
@@ -141,6 +178,17 @@ int		moov_front(t_game *game, float new_x, float new_y);
 int		moov_back(t_game *game, float new_x, float new_y);
 void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
+// - graph_key.c - //
+int ft_key_press(int keycode, t_game *game);
+int ft_key_release(int keycode, t_game *game);
+// - graph_raycast.c - // 
+void ray_tracer(t_game *game);
+// - graph_ray_utils.c - //
+t_img *texturing(t_ray *ray, t_game *game, t_img *texture);
+void init_ray(t_ray *ray, t_game *game);
+void init_cast_ray(t_ray *ray, t_game *game);
+void	my_mlx_pixel_put3D(t_game *game, int x, int y, int color);
+
 
 // -- Parsing -- //
 // - pars_main.c - //
