@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 10:44:54 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/20 11:58:31 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:25:00 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,4 +117,5 @@ void ray_tracer(t_game *game)
         drawing_floor_x(ray, game);
     }
     mlx_put_image_to_window(game->mlx3d, game->wdw3d, game->img3d, 0, 0);
+	free(ray);
 }

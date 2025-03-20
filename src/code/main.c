@@ -1,19 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/20 12:27:51 by misaac-c          #+#    #+#             */
+/*   Updated: 2025/03/20 12:28:11 by misaac-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cube.h"
 #include "../libs/libft/libft.h"
-
-
-void 	print_map(t_cube *cube)
-{
-	int i = 0;
-
-	while (cube->map[i])
-	{
-		ft_printf("map[%d] -> %s", i, cube->map[i]);
-		i++;
-	}
-	ft_printf("\npos->x %d\npos->y %d\npos->x_dir %d\npos->y_dir %d\n", cube->x_plr, cube->y_plr, cube->x_dir_plr, cube->y_dir_plr);
-
-}
 
 int main(int argc, char **argv)
 {
@@ -26,15 +24,10 @@ int main(int argc, char **argv)
 	skin = malloc(sizeof(t_texture));
 	cube = malloc(sizeof(t_cube));
 	game = malloc(sizeof(t_game));
-
 	init_struct(skin, cube);
 	if(parsing(skin, cube, argv))
 		return(1);
-	
-	ft_printf(">> SUCCESS !\n");
-	print_map(cube);
 	game->map = copy_map(cube->map); 
 	graph_main(cube, skin);
-
 	return(free(cube), free(skin), free(game), 0);
 }
