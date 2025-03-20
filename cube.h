@@ -207,7 +207,8 @@ int		saving_data(t_cube *cube, char *line, int index);
 void	set_skin(t_texture *skin, char **texture, char *line);
 // - pars_algo.c - //
 int		algo_wall(t_cube *cube);
-
+// - pars_utils.c - //
+int	big_condition(char *line);
 
 // -- Utils -- //
 // - utils.c - //
