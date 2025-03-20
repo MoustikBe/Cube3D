@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:14:06 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/11 15:21:58 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:35:08 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	fill_algo(char **map, int y, int x, int *detect)
 {
-	if(!map[y])
+	if (!map[y])
 	{
 		*detect = 1;
 		return ;
@@ -36,14 +36,15 @@ void	fill_algo(char **map, int y, int x, int *detect)
 	fill_algo(map, y, x -1, detect);
 }
 
-int algo_wall(t_cube *cube)
+int	algo_wall(t_cube *cube)
 {
-	int detect = 0;
-	char **map_copy;
-	
+	int		detect;
+	char	**map_copy;
+
+	detect = 0;
 	map_copy = copy_map(cube->map);
 	fill_algo(map_copy, cube->y_plr, cube->x_plr, &detect);
-	if(detect)
-		return(free_struct(map_copy) ,printf("Error, map not closed\n"));
-	return(free_struct(map_copy) ,0);
+	if (detect)
+		return (free_struct(map_copy), printf("Error, map not closed\n"));
+	return (free_struct(map_copy), 0);
 }

@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:58:44 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/09 17:40:17 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:33:27 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,24 @@
 
 void	check_component(t_texture *skin)
 {
-	int i;
+	int	i;
 
-	if(!skin->NO || !skin->SO || !skin->EA || !skin->WE || !skin->C || !skin->F)
+	if (!skin->NO || !skin->SO || !skin->EA
+		|| !skin->WE || !skin->C || !skin->F)
 	{
 		ft_printf("Error\nMissing color or texture valid.\n");
 		skin->error = 1;
 	}
-	else if(open(skin->NO, R_OK) < 0 || open(skin->SO, R_OK) < 0 || open(skin->EA, R_OK) < 0 || open(skin->WE, R_OK) < 0)
+	else if (open(skin->NO, R_OK) < 0
+		|| open(skin->SO, R_OK) < 0 || open(skin->EA, R_OK) < 0
+		|| open(skin->WE, R_OK) < 0)
 	{
 		ft_printf("Error\nInvalid texture file. %s\n", skin->NO);
 		skin->error = 1;
 	}
 	else
 	{
-		if(rgb_checker(skin->C) || rgb_checker(skin->F))
+		if (rgb_checker(skin->C) || rgb_checker(skin->F))
 		{
 			skin->error = 1;
 			return ;
@@ -39,7 +42,7 @@ void	check_component(t_texture *skin)
 
 int	parsing(t_texture *skin, t_cube *cube, char **argv)
 {
-	cube->file_map = ft_strdup(argv[1]); // leaks
+	cube->file_map = ft_strdup(argv[1]);
 	if (verif_file(cube))
 		return (1);
 	verif_info(skin, cube);
