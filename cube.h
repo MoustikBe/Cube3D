@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cube.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/24 11:36:55 by misaac-c          #+#    #+#             */
+/*   Updated: 2025/03/24 11:59:20 by misaac-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUBE_H
 # define CUBE_H
 
@@ -10,17 +22,17 @@
 // # --- Library --- # // 
 
 // # --- Macro --- # // 
-#define PI 3.1415926
+# define PI 3.1415926
 
 // # --- struct --- # //
 typedef struct t_texture
 {
-	char	*NO;
-	char	*SO;
-	char	*EA;
-	char	*WE;
-	int		*F;
-	int		*C;
+	char	*no;
+	char	*so;
+	char	*ea;
+	char	*we;
+	int		*f;
+	int		*c;
 	int		error;
 }	t_texture;
 
@@ -30,8 +42,6 @@ typedef struct t_cube
 	char	**map;
 	int		x_plr;
 	int		y_plr;
-
-
 	int		x_dir_plr;
 	int		y_dir_plr;
 	int		player;
@@ -39,20 +49,17 @@ typedef struct t_cube
 
 typedef struct s_img
 {
-    void    *img;
-    int     *data;
-    int     width;
-    int     height;
-    int     bpp;
-    int     line_len;
-    int     endian;
-} t_img;
-
-
+	void	*img;
+	int		*data;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
 
 typedef struct t_game
 {
-	/* Display */
 	int		width;
 	int		height;
 	void	*mlx;
@@ -63,106 +70,91 @@ typedef struct t_game
 	void	*img3d;
 	char	*addr;
 	char	*addr3d;
-    int     endian;
-	int     line_length;
+	int		endian;
+	int		line_length;
 	int		bit_per_pixel;
-	int     line_length3d;
+	int		line_length3d;
 	int		bit_per_pixel3d;
-	int     endian3d;
-	char    *wall_texutre;
-	t_img tex_N;
-    t_img tex_S;
-    t_img tex_E;
-    t_img tex_W;
-	t_img mini_map;
-
-	int ceiling_color;
-	int floor_color;
-
-	int front;
-	int back;
-	int r_left;
-	int r_right;
-	int exit;
-
-	char **map;
+	int		endian3d;
+	char	*wall_texutre;
+	t_img	tex_n;
+	t_img	tex_s;
+	t_img	tex_e;
+	t_img	tex_w;
+	t_img	mini_map;
+	int		ceiling_color;
+	int		floor_color;
+	int		front;
+	int		back;
+	int		r_left;
+	int		r_right;
+	int		exit;
+	char	**map;
 	float	angle;
 	float	speed;
-
-	float px;
-	float py;
-	float pdx;
-	float pdy;
-	float pa;
-
-	/* -- RAYCASTER -- */
+	float	px;
+	float	py;
+	float	pdx;
+	float	pdy;
+	float	pa;
 	int		r;
 	int		mx;
-	int 	my;
-	int 	mp;
-	int 	dof;
-	
+	int		my;
+	int		mp;
+	int		dof;
 	float	rx;
 	float	ry;
 	float	ra;
 	float	xo;
 	float	yo;
-	/* RAYCASTER */
-	
-	int keys[256]; 
-	/* Info */
+	int		keys[256];
 	int		len_x;
 	int		len_y;
-	/* PAUSE */
-	void 	*g_NO;
-	void 	*g_SO;
-	void 	*g_EA;
-	void 	*g_WE;
+	void	*g_no;
+	void	*g_so;
+	void	*g_ea;
+	void	*g_we;
 	t_cube	*cube;
 }	t_game;
 
 typedef struct t_ray
 {
-	int		screenWidth;
-	int		screenHeight;
-	float	FOV;
+	int		screenwidth;
+	int		screenheight;
+	float	fov;
 	int		x;
 	int		y;
 	float	ray_angle;
-	int		mapX;
-	int		mapY;
+	int		mapx;
+	int		mapy;
 	int		side;
-	int		stepX;
-	int		stepY;
-	float	perpWallDist;
-	float	correctedDist;
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
-	float	rayDirX;
-	float	rayDirY;
-	float	wallX;
-	int		textureX;
+	int		stepx;
+	int		stepy;
+	float	perpwalldist;
+	float	correcteddist;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	float	raydirx;
+	float	raydiry;
+	float	wallx;
+	int		texturex;
 	int		d;
-	int		textureY;
+	int		texturey;
 	int		color;
-	/* Cast_ray */
-	float posX;
-	float posY;
-	float rayDirX2;
-	float rayDirY2;
-	float deltaDistX;
-	float deltaDistY;
-	float sideDistX;
-	float sideDistY;
-	int hit;
+	float	posx;
+	float	posy;
+	float	raydirx2;
+	float	raydiry2;
+	float	deltadistx;
+	float	deltadisty;
+	float	sidedistx;
+	float	sidedisty;
+	int		hit;
 }	t_ray;
-
-
 // # --- struct --- # //
 
 // # --- functions --- # //
-
 // -- Graphics -- //
 // - graph_main.c - //
 void	graph_main(t_cube *cube, t_texture *skin);
@@ -179,16 +171,15 @@ int		moov_back(t_game *game, float new_x, float new_y);
 void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
 // - graph_key.c - //
-int ft_key_press(int keycode, t_game *game);
-int ft_key_release(int keycode, t_game *game);
+int		ft_key_press(int keycode, t_game *game);
+int		ft_key_release(int keycode, t_game *game);
 // - graph_raycast.c - // 
-void ray_tracer(t_game *game);
+void	ray_tracer(t_game *game);
 // - graph_ray_utils.c - //
-t_img *texturing(t_ray *ray, t_game *game, t_img *texture);
-void init_ray(t_ray *ray, t_game *game);
-void init_cast_ray(t_ray *ray, t_game *game);
+t_img	*texturing(t_ray *ray, t_game *game, t_img *texture);
+void	init_ray(t_ray *ray, t_game *game);
+void	init_cast_ray(t_ray *ray, t_game *game);
 void	my_mlx_pixel_put3d(t_game *game, int x, int y, int color);
-
 
 // -- Parsing -- //
 // - pars_main.c - //
@@ -208,8 +199,8 @@ void	set_skin(t_texture *skin, char **texture, char *line);
 // - pars_algo.c - //
 int		algo_wall(t_cube *cube);
 // - pars_utils.c - //
-int	big_condition(char *line);
-int cal_len_color(t_texture *skin, char *line, int *i);
+int		big_condition(char *line);
+int		cal_len_color(t_texture *skin, char *line, int *i);
 
 // -- Utils -- //
 // - utils.c - //

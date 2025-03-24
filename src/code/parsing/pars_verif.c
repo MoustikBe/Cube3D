@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:57:15 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/20 13:23:17 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:39:24 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ void	verif_info(t_texture *skin, t_cube *cube)
 	while (line)
 	{
 		if (ft_strncmp("NO ", line, 3) == 0)
-			set_skin(skin, &skin->NO, line);
+			set_skin(skin, &skin->no, line);
 		if (ft_strncmp("SO ", line, 3) == 0)
-			set_skin(skin, &skin->SO, line);
+			set_skin(skin, &skin->so, line);
 		if (ft_strncmp("EA ", line, 3) == 0)
-			set_skin(skin, &skin->EA, line);
+			set_skin(skin, &skin->ea, line);
 		if (ft_strncmp("WE ", line, 3) == 0)
-			set_skin(skin, &skin->WE, line);
+			set_skin(skin, &skin->we, line);
 		if (ft_strncmp("C ", line, 2) == 0)
-			set_fc_color(skin, &skin->C, line);
+			set_fc_color(skin, &skin->c, line);
 		if (ft_strncmp("F ", line, 2) == 0)
-			set_fc_color(skin, &skin->F, line);
+			set_fc_color(skin, &skin->f, line);
 		free(line);
 		line = get_next_line(fd_map);
 	}

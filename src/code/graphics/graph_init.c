@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:42 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 11:18:50 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:45:30 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ int	load_texture(t_game *game, t_img *tex, char *path)
 
 int	load_all_texture(t_texture *skin, t_game *game)
 {
-	if (load_texture(game, &game->tex_N, skin->NO))
+	if (load_texture(game, &game->tex_n, skin->no))
 		return (ft_printf(
 				"Error loading the North texture, verify the path pls\n"));
-	if (load_texture(game, &game->tex_S, skin->SO))
+	if (load_texture(game, &game->tex_s, skin->so))
 		return (ft_printf(
 				"Error loading the South texture, verify the path pls\n"));
-	if (load_texture(game, &game->tex_E, skin->EA))
+	if (load_texture(game, &game->tex_e, skin->ea))
 		return (ft_printf(
 				"Error loading the East texture, verify the path pls\n"));
-	if (load_texture(game, &game->tex_W, skin->WE))
+	if (load_texture(game, &game->tex_w, skin->we))
 		return (ft_printf(
 				"Error loading the West texture, verify the path pls\n"));
 	return (0);
@@ -67,8 +67,8 @@ void	graph_init(t_game *game, t_cube *cube, t_texture *skin)
 	game->r_left = 0;
 	game->r_right = 0;
 	game->exit = 0;
-	game->floor_color = rgb_to_hex(skin->F);
-	game->ceiling_color = rgb_to_hex(skin->C);
+	game->floor_color = rgb_to_hex(skin->f);
+	game->ceiling_color = rgb_to_hex(skin->c);
 	init_player_rotation(game, cube);
 	game->pdx = cos(game->pa) * 0.05;
 	game->pdy = sin(game->pa) * 0.05;

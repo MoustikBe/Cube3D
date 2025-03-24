@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:56:40 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 11:29:09 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:59:36 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,47 +27,47 @@ void	my_mlx_pixel_put3d(t_game *game, int x, int y, int color)
 
 void	init_ray(t_ray *ray, t_game *game)
 {
-	ray->screenWidth = game->width / 2.5;
-	ray->screenHeight = game->height / 2;
-	ray->FOV = 60.0f * (PI / 180.0f);
+	ray->screenwidth = game->width / 2.5;
+	ray->screenheight = game->height / 2;
+	ray->fov = 60.0f * (PI / 180.0f);
 }
 
 void	replace_ternaries(t_ray *ray)
 {
-	if (ray->rayDirX2 == 0)
-		ray->deltaDistX = 1e30f;
+	if (ray->raydirx2 == 0)
+		ray->deltadistx = 1e30f;
 	else
-		ray->deltaDistX = fabs(1.0f / ray->rayDirX2);
-	if (ray->rayDirY2 == 0)
-		ray->deltaDistY = 1e30f;
+		ray->deltadistx = fabs(1.0f / ray->raydirx2);
+	if (ray->raydiry2 == 0)
+		ray->deltadisty = 1e30f;
 	else
-		ray->deltaDistY = fabs(1.0f / ray->rayDirY2);
-	if (ray->rayDirX2 < 0)
-		ray->stepX = -1;
+		ray->deltadisty = fabs(1.0f / ray->raydiry2);
+	if (ray->raydirx2 < 0)
+		ray->stepx = -1;
 	else
-		ray->stepX = 1;
-	if (ray->rayDirY2 < 0)
-		ray->stepY = -1;
+		ray->stepx = 1;
+	if (ray->raydiry2 < 0)
+		ray->stepy = -1;
 	else
-		ray->stepY = 1;
-	if (ray->rayDirX2 < 0)
-		ray->sideDistX = (ray->posX - ray->mapX) * ray->deltaDistX;
+		ray->stepy = 1;
+	if (ray->raydirx2 < 0)
+		ray->sidedistx = (ray->posx - ray->mapx) * ray->deltadistx;
 	else
-		ray->sideDistX = (ray->mapX + 1.0f - ray->posX) * ray->deltaDistX;
-	if (ray->rayDirY2 < 0)
-		ray->sideDistY = (ray->posY - ray->mapY) * ray->deltaDistY;
+		ray->sidedistx = (ray->mapx + 1.0f - ray->posx) * ray->deltadistx;
+	if (ray->raydiry2 < 0)
+		ray->sidedisty = (ray->posy - ray->mapy) * ray->deltadisty;
 	else
-		ray->sideDistY = (ray->mapY + 1.0f - ray->posY) * ray->deltaDistY;
+		ray->sidedisty = (ray->mapy + 1.0f - ray->posy) * ray->deltadisty;
 }
 
 void	init_cast_ray(t_ray *ray, t_game *game)
 {
-	ray->posX = game->px;
-	ray->posY = game->py;
-	ray->rayDirX2 = cos(ray->ray_angle);
-	ray->rayDirY2 = sin(ray->ray_angle);
-	ray->mapX = (int)ray->posX;
-	ray->mapY = (int)ray->posY;
+	ray->posx = game->px;
+	ray->posy = game->py;
+	ray->raydirx2 = cos(ray->ray_angle);
+	ray->raydiry2 = sin(ray->ray_angle);
+	ray->mapx = (int)ray->posx;
+	ray->mapy = (int)ray->posy;
 	ray->hit = 0;
 	ray->side = 0;
 	replace_ternaries(ray);
@@ -77,17 +77,17 @@ t_img	*texturing(t_ray *ray, t_game *game, t_img *texture)
 {
 	if (ray->side == 0)
 	{
-		if (ray->stepX > 0)
-			texture = &game->tex_E;
+		if (ray->stepx > 0)
+			texture = &game->tex_e;
 		else
-			texture = &game->tex_W;
+			texture = &game->tex_w;
 	}
 	else
 	{
-		if (ray->stepY > 0)
-			texture = &game->tex_S;
+		if (ray->stepy > 0)
+			texture = &game->tex_s;
 		else
-			texture = &game->tex_N;
+			texture = &game->tex_n;
 	}
 	return (texture);
 }

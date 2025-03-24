@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 12:31:02 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/20 12:32:13 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:39:36 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 void	init_struct(t_texture *skin, t_cube *cube)
 {
-	skin->NO = NULL;
-	skin->SO = NULL;
-	skin->EA = NULL;
-	skin->WE = NULL;
-	skin->C = NULL;
-	skin->F = NULL;
+	skin->no = NULL;
+	skin->so = NULL;
+	skin->ea = NULL;
+	skin->we = NULL;
+	skin->c = NULL;
+	skin->f = NULL;
 	skin->error = 0;
 	cube->y_plr = 0;
 	cube->x_plr = 0;
