@@ -44,27 +44,32 @@ OBJ			=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
-$(LIBFT):
-	@$(MAKE) -C $(LIBFT_DIR)
+$(MLX):
+	@$(MAKE) -C $(MLX_DIR) > /dev/null 2>&1
+	@echo "\033[0;32mMlx compiled ✅"
 
-$(NAME): $(LIBFT) $(OBJ)
+$(LIBFT):
+	@$(MAKE) -C $(LIBFT_DIR) > /dev/null 2>&1
+	@echo "\033[0;32mMinilib compiled ✅"
+
+$(NAME): $(MLX) $(LIBFT) $(OBJ)
 	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT) $(MLX_FLAGS) $(INCLUDES)
+	@echo "\033[0;32mCube3D a finis sa compilation ✅ -> ⚙️ \033[1;34m./cube3D [path_to_map]"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -o $@ -g3 -c $< $(INCLUDES)
 
-mlx:
-	@$(MAKE) -C $(MLX_DIR)
-
 clean:
-	@$(RM) -r $(OBJ_DIR)
-	@$(MAKE) -C $(LIBFT_DIR) clean
+	@$(RM) -r $(OBJ_DIR)  > /dev/null 2>&1
+	@$(MAKE) -C $(LIBFT_DIR) clean  > /dev/null 2>&1
+	@echo "\033[0;31mMiniLib & cube3D object delete"
 
 fclean: clean
-	@$(RM) $(NAME)
-	@$(MAKE) -C $(LIBFT_DIR) fclean
-	@$(MAKE) -C $(MLX_DIR) clean
+	@$(RM) $(NAME)  > /dev/null 2>&1 
+	@$(MAKE) -C $(LIBFT_DIR) fclean  > /dev/null 2>&1 
+	@$(MAKE) -C $(MLX_DIR) clean  > /dev/null 2>&1
+	@echo "\033[0;31mProject has been clean !"
 
 re: fclean all
 
