@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:02:01 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 11:14:52 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:01:50 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	exit_game(t_game *game)
 	exit(1);
 }
 
-int	mng_input(int keysym, t_game *game, t_cube *cube)
+int	mng_input(t_game *game)
 {
 	if (game->exit)
 		exit_game(game);
@@ -42,6 +42,6 @@ int	game_loop(t_game *game)
 {
 	if (game->front || game->back || game->r_left
 		|| game->r_right || game->exit)
-		mng_input(0, game, game->cube);
+		mng_input(game);
 	return (0);
 }

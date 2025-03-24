@@ -14,7 +14,7 @@ endif
 NAME		=	cub3D
 
 CC			=	gcc
-CFLAGS		=	#-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror
 
 LIBFT_DIR	=	./src/libs/libft
 LIBFT		=	$(LIBFT_DIR)/libft.a

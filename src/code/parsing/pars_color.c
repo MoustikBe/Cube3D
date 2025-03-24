@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:53:24 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 11:12:06 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:04:47 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	store_color(t_texture *skin, int **color, char *line)
 	while (nb < 3)
 	{
 		i_ = i;
-		len = cal_len_color(skin, line, &i);
+		len = cal_len_color(line, &i);
 		clr_str = color_char_format(skin, line, len, i_);
 		if (clr_str == NULL)
 			return (1);
@@ -109,8 +109,6 @@ int	store_color(t_texture *skin, int **color, char *line)
 
 void	set_fc_color(t_texture *skin, int **color, char *line)
 {
-	int	i;
-
 	if (*color)
 	{
 		ft_printf("Error\nDuplicate color.\n");

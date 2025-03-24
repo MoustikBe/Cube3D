@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:14:06 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/20 12:35:08 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:03:24 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	fill_algo(char **map, int y, int x, int *detect)
 		*detect = 1;
 		return ;
 	}
-	if (x < 0 || y < 0 || x >= ft_strlen(map[y]) || y > len_array(map) - 1)
+	if (x < 0 || y < 0 || x >= (int)ft_strlen(map[y]) || y > len_array(map) - 1)
 	{
 		*detect = 1;
 		return ;

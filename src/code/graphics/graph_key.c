@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 10:42:23 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 11:19:31 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:03:02 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ft_key_press(int keycode, t_game *game)
 		game->r_right = 1;
 	else if (keycode == 65307)
 		game->exit = 1;
+	return (0);
 }
 
 int	ft_key_release(int keycode, t_game *game)
@@ -40,4 +41,5 @@ int	ft_key_release(int keycode, t_game *game)
 		game->r_right = 0;
 	else if (keycode == 65307)
 		game->exit = 0;
+	return (0);
 }

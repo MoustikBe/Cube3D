@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:40:17 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 11:20:58 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:02:33 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	moov_back(t_game *game, float new_x, float new_y)
 		game->py = new_y;
 		ray_tracer(game);
 	}
+	return (0);
 }
 
 void	rotate_left(t_game *game)

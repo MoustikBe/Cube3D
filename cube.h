@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:36:55 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 11:59:20 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:04:35 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ void	set_skin(t_texture *skin, char **texture, char *line);
 int		algo_wall(t_cube *cube);
 // - pars_utils.c - //
 int		big_condition(char *line);
-int		cal_len_color(t_texture *skin, char *line, int *i);
+int		cal_len_color(char *line, int *i);
 
 // -- Utils -- //
 // - utils.c - //

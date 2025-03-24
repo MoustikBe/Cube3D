@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:57:15 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 11:39:24 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:04:10 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int	cross_line(t_cube *cube, int fd_map, int *index)
 
 int	verif_map(t_cube *cube)
 {
-	char	*line;
 	int		fd_map;
 	int		index;
 

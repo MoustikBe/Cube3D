@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:22:12 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 11:09:46 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:04:27 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	big_condition(char *line)
 	return (0);
 }
 
-int	cal_len_color(t_texture *skin, char *line, int *i)
+int	cal_len_color(char *line, int *i)
 {
 	int	len;
 

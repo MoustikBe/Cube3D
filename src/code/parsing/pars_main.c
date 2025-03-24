@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:58:44 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 11:38:49 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:03:59 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 void	check_component(t_texture *skin)
 {
-	int	i;
-
 	if (!skin->no || !skin->so || !skin->ea
 		|| !skin->we || !skin->c || !skin->f)
 	{
