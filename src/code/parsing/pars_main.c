@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:58:44 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 13:13:48 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:15:11 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	check_component(t_texture *skin)
 	if (!skin->no || !skin->so || !skin->ea
 		|| !skin->we || !skin->c || !skin->f)
 	{
-		ft_printf("Error\nMissing color or texture valid.\n");
+		ft_printf("Error\nMissing color or texture/file valid.\n");
 		skin->error = 1;
 	}
 	else if (open(skin->no, R_OK) < 0
