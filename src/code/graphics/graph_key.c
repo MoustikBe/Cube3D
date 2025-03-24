@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 10:42:23 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/20 10:42:44 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:19:31 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 #include "../../libs/libft/libft.h"
 #include "../../libs/minilibx-linux/mlx.h"
 
-int ft_key_press(int keycode, t_game *game)
+int	ft_key_press(int keycode, t_game *game)
 {
-	if(keycode == 119)
+	if (keycode == 119)
 		game->front = 1;
-	else if(keycode == 115)
+	else if (keycode == 115)
 		game->back = 1;
-	else if(keycode == 97)
+	else if (keycode == 97)
 		game->r_left = 1;
-	else if(keycode == 100)
+	else if (keycode == 100)
 		game->r_right = 1;
-	else if(keycode == 65307)
+	else if (keycode == 65307)
 		game->exit = 1;
 }
 
-int ft_key_release(int keycode, t_game *game)
+int	ft_key_release(int keycode, t_game *game)
 {
-	if(keycode == 119)
+	if (keycode == 119)
 		game->front = 0;
-	else if(keycode == 115)
+	else if (keycode == 115)
 		game->back = 0;
-	else if(keycode == 97)
+	else if (keycode == 97)
 		game->r_left = 0;
-	else if(keycode == 100)
+	else if (keycode == 100)
 		game->r_right = 0;
-	else if(keycode == 65307)
+	else if (keycode == 65307)
 		game->exit = 0;
 }

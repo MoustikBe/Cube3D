@@ -187,7 +187,7 @@ void ray_tracer(t_game *game);
 t_img *texturing(t_ray *ray, t_game *game, t_img *texture);
 void init_ray(t_ray *ray, t_game *game);
 void init_cast_ray(t_ray *ray, t_game *game);
-void	my_mlx_pixel_put3D(t_game *game, int x, int y, int color);
+void	my_mlx_pixel_put3d(t_game *game, int x, int y, int color);
 
 
 // -- Parsing -- //
