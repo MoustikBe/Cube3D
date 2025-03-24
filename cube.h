@@ -209,6 +209,7 @@ void	set_skin(t_texture *skin, char **texture, char *line);
 int		algo_wall(t_cube *cube);
 // - pars_utils.c - //
 int	big_condition(char *line);
+int cal_len_color(t_texture *skin, char *line, int *i);
 
 // -- Utils -- //
 // - utils.c - //
