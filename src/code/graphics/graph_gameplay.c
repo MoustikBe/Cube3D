@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:02:01 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 12:01:50 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:56:52 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,24 @@ int	mng_input(t_game *game)
 	if (game->back)
 		if (moov_back(game, 0, 0))
 			return (2);
-	if (game->r_left)
-		rotate_left(game);
+	if (game->left)
+		if (moov_left(game, 0, 0))
+			return (2);
+	if (game->right)
+		if (moov_right(game, 0, 0))
+			return (2);
 	if (game->r_right)
 		rotate_right(game);
+	if (game->r_left)
+		rotate_left(game);
 	return (0);
 }
 
 int	game_loop(t_game *game)
 {
 	if (game->front || game->back || game->r_left
-		|| game->r_right || game->exit)
+		|| game->r_right || game->exit
+		|| game->right || game->left)
 		mng_input(game);
 	return (0);
 }

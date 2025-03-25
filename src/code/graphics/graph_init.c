@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:42 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 11:45:30 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:57:09 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	graph_init(t_game *game, t_cube *cube, t_texture *skin)
 {
 	game->front = 0;
 	game->back = 0;
+	game->left = 0;
+	game->right = 0;
 	game->r_left = 0;
 	game->r_right = 0;
 	game->exit = 0;
