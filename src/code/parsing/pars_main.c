@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:58:44 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 13:15:11 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:14:19 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	check_component(t_texture *skin)
 		ft_printf("Error\nMissing color or texture/file valid.\n");
 		skin->error = 1;
 	}
-	else if (open(skin->no, R_OK) < 0
-		|| open(skin->so, R_OK) < 0 || open(skin->ea, R_OK) < 0
-		|| open(skin->we, R_OK) < 0)
+	else if (open(skin->no, O_RDONLY) < 0
+		|| open(skin->so, O_RDONLY) < 0 || open(skin->ea, O_RDONLY) < 0
+		|| open(skin->we, O_RDONLY) < 0)
 	{
 		ft_printf("Error\nInvalid texture file.\n");
 		skin->error = 1;

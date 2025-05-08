@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_verif.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:57:15 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 12:04:10 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:14:25 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	verif_file(t_cube *c)
 		if (c->file_map[l - 1] == 'b' && c->file_map[l - 2] == 'u'
 			&& c->file_map[l - 3] == 'c' && c->file_map[l - 4] == '.')
 		{
-			if (open(c->file_map, R_OK))
+			if (open(c->file_map, O_RDONLY))
 				return (0);
 			else
 				return (ft_printf("Error\nFile not found or not readable\n"));
@@ -37,7 +37,7 @@ void	verif_info(t_texture *skin, t_cube *cube)
 	char	*line;
 	int		fd_map;
 
-	fd_map = open(cube->file_map, R_OK);
+	fd_map = open(cube->file_map, O_RDONLY);
 	line = get_next_line(fd_map);
 	while (line)
 	{

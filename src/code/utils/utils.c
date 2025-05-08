@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 12:31:02 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 11:39:36 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:14:27 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	len_map(t_cube *cube)
 	int		len;
 
 	len = 0;
-	fd_map = open(cube->file_map, R_OK);
+	fd_map = open(cube->file_map, O_RDONLY);
 	line = get_next_line(fd_map);
 	while (line)
 	{
