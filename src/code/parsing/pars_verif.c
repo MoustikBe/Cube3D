@@ -110,7 +110,7 @@ int	verif_map(t_cube *cube)
 
 	index = 0;
 	cube->map = malloc(sizeof(char *) * (len_map(cube) + 1));
-	fd_map = open(cube->file_map, R_OK);
+	fd_map = open(cube->file_map, O_RDONLY);
 	if (cross_line(cube, fd_map, &index))
 		return (1);
 	close(fd_map);
