@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_algo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:14:06 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 12:03:24 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/06/16 19:28:54 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,53 @@ void	fill_algo(char **map, int y, int x, int *detect)
 	fill_algo(map, y, x -1, detect);
 }
 
+
 int	algo_wall(t_cube *cube)
 {
-	int		detect;
-	char	**map_copy;
-
-	detect = 0;
-	map_copy = copy_map(cube->map);
-	fill_algo(map_copy, cube->y_plr, cube->x_plr, &detect);
-	if (detect)
-		return (free_struct(map_copy), printf("Error, map not closed\n"));
-	return (free_struct(map_copy), 0);
+	int i;
+	i = 0;
+	int index = 0;
+	while(cube->map[i])
+	{
+		int j = 0;
+		if(i == 0 || i == len_map(cube) - 1)
+		{
+			while (cube->map[i][j])
+			{
+				if(cube->map[i][j] == '1' || cube->map[i][j] == '\v' || cube->map[i][j] == '\t' || cube->map[i][j] == ' ' || cube->map[i][j] == '\n')
+					j++;
+				else 
+					return(printf("Error, invalid map\n"), 1);
+			}
+		}
+		while (cube->map[i][j])
+		{
+			index = ft_strlen(cube->map[i]) - 2;
+			if(cube->map[i][0] != '1' && cube->map[i][0] != ' ')
+				return(printf("Error, invalid map\n"), 1);
+			else if(cube->map[i][ft_strlen(cube->map[i]) - 2] == ' ')
+			{
+				index = ft_strlen(cube->map[i]) - 2;
+				while (cube->map[i][index] == ' ')
+					index--;
+			}
+			if(cube->map[i][index] != '1')
+				return(printf("Error, invalid map\n"));
+			if(cube->map[i][j] == '0')
+			{
+				if(!cube->map[i - 1][j] || !cube->map[i + 1][j])
+					return(printf("Error, invalid map\n"), 1);
+				else if(cube->map[i - 1][j] == ' ' || cube->map[i + 1][j] == ' ')
+					return(printf("Error, invalid map\n"), 1);
+			}
+			else if(cube->map[i][j] == '\t')
+				return(printf("Error, invalid map\n"),1 );
+			j++;
+		}
+		i++;
+	}
+	return(0);
 }
+// PLAYER OUTSIDE OF THE MAP 
+// space after 0 at the end of a row
+ 
