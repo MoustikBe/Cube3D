@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:36:55 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/25 11:46:58 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:06:55 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,19 @@ typedef struct t_game
 {
 	int		width;
 	int		height;
-	void	*mlx;
 	void	*mlx3d;
-	void	*wdw;
 	void	*wdw3d;
 	void	*img;
 	void	*img3d;
-	char	*addr;
 	char	*addr3d;
 	int		endian;
-	int		line_length;
-	int		bit_per_pixel;
 	int		line_length3d;
 	int		bit_per_pixel3d;
 	int		endian3d;
-	char	*wall_texutre;
 	t_img	tex_n;
 	t_img	tex_s;
 	t_img	tex_e;
 	t_img	tex_w;
-	t_img	mini_map;
 	int		ceiling_color;
 	int		floor_color;
 	int		front;
@@ -92,30 +85,12 @@ typedef struct t_game
 	int		r_right;
 	int		exit;
 	char	**map;
-	float	angle;
-	float	speed;
 	float	px;
 	float	py;
 	float	pdx;
 	float	pdy;
 	float	pa;
-	int		r;
-	int		mx;
-	int		my;
-	int		mp;
-	int		dof;
-	float	rx;
-	float	ry;
-	float	ra;
-	float	xo;
-	float	yo;
 	int		keys[256];
-	int		len_x;
-	int		len_y;
-	void	*g_no;
-	void	*g_so;
-	void	*g_ea;
-	void	*g_we;
 	t_cube	*cube;
 }	t_game;
 
