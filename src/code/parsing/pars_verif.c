@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:57:15 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/06/16 19:59:01 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/06/22 22:19:28 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int	cross_line(t_cube *cube, int fd_map, int *index)
 		}
 		else if (!big_condition(line))
 			return (free(line), ft_printf("Error bad config file\n"));
+		else if (cube->map[0] && line[0] == '\n')
+			return (free(line), ft_printf("Error empty line in map\n"));
 		free(line);
 		line = get_next_line(fd_map);
 	}
