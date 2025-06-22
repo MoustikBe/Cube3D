@@ -18,7 +18,7 @@ int	moov_front(t_game *game, float new_x, float new_y)
 {
 	new_x = game->px + game->pdx;
 	new_y = game->py + game->pdy;
-	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1')
+	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1' || game->cube->map[(int)(new_y)][(int)(new_x)] == ' ')
 		return (2);
 	else
 	{
@@ -33,7 +33,7 @@ int	moov_back(t_game *game, float new_x, float new_y)
 {
 	new_x = game->px - game->pdx;
 	new_y = game->py - game->pdy;
-	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1')
+	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1' || game->cube->map[(int)(new_y)][(int)(new_x)] == ' ')
 		return (2);
 	else
 	{
@@ -48,7 +48,7 @@ int	moov_left(t_game *game, float new_x, float new_y)
 {
 	new_x = game->px + game->pdy;
 	new_y = game->py - game->pdx;
-	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1')
+	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1' game->cube->map[(int)(new_y)][(int)(new_x)] == ' ')
 		return (2);
 	else
 	{
@@ -63,7 +63,7 @@ int	moov_right(t_game *game, float new_x, float new_y)
 {
 	new_x = game->px - game->pdy;
 	new_y = game->py + game->pdx;
-	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1')
+	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1' || game->cube->map[(int)(new_y)][(int)(new_x)] == ' ') //added the ' ' because if it's a space it shouldn't move either (it used to cause a seg_fault when you had ' '111)
 		return (2);
 	else
 	{

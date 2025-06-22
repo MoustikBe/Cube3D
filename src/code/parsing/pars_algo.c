@@ -37,15 +37,15 @@ void	fill_algo(char **map, int y, int x, int *detect)
 }
 
 
-int	algo_wall(t_cube *cube)
+int	algo_wall(t_cube *cube) //checks if the map is surrounded by walls
 {
-	int i;
+	int i; //current map row
 	i = 0;
 	int index = 0;
-	while(cube->map[i])
+	while(cube->map[i]) //iterates through each row of the map
 	{
 		int j = 0;
-		if(i == 0 || i == len_map(cube) - 1)
+		if(i == 0 || i == len_map(cube) - 1) //if we are on the first or last row, we verify that there are only 1s or whitespaces
 		{
 			while (cube->map[i][j])
 			{
@@ -58,7 +58,7 @@ int	algo_wall(t_cube *cube)
 		while (cube->map[i][j])
 		{
 			index = ft_strlen(cube->map[i]) - 2;
-			if(cube->map[i][0] != '1' && cube->map[i][0] != ' ')
+			if(cube->map[i][0] != '1' && cube->map[i][0] != ' ') //first char must be 1 or space
 				return(printf("Error, invalid map\n"), 1);
 			else if(cube->map[i][ft_strlen(cube->map[i]) - 2] == ' ')
 			{
@@ -83,6 +83,3 @@ int	algo_wall(t_cube *cube)
 	}
 	return(0);
 }
-// PLAYER OUTSIDE OF THE MAP 
-// space after 0 at the end of a row
- 
