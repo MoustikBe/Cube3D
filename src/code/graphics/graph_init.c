@@ -42,7 +42,7 @@ int	load_all_texture(t_texture *skin, t_game *game)
 	return (0);
 }
 
-int	rgb_to_hex(int *rgb)
+int	rgb_to_hex(int *rgb) //[0] is red, [1] is green and [2] is blue
 {
 	return (((rgb[0] & 0xFF) << 16) | ((rgb[1] & 0xFF) << 8) | (rgb[2] & 0xFF));
 }
@@ -69,7 +69,7 @@ void	graph_init(t_game *game, t_cube *cube, t_texture *skin)
 	game->r_left = 0;
 	game->r_right = 0;
 	game->exit = 0;
-	game->floor_color = rgb_to_hex(skin->f);
+	game->floor_color = rgb_to_hex(skin->f); //converts the int rgb colors to hexadcimal
 	game->ceiling_color = rgb_to_hex(skin->c);
 	init_player_rotation(game, cube);
 	game->pdx = cos(game->pa) * 0.05;

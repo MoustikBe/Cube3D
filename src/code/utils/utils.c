@@ -56,7 +56,7 @@ int	len_array(char **map)
 	return (i);
 }
 
-char	**copy_map(char **map)
+char	**copy_map(char **map) //creates a copy of the map to change the player's position without affecting the real original map
 {
 	char	**map_copy;
 	int		i;

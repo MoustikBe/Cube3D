@@ -48,7 +48,7 @@ int	moov_left(t_game *game, float new_x, float new_y)
 {
 	new_x = game->px + game->pdy;
 	new_y = game->py - game->pdx;
-	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1' game->cube->map[(int)(new_y)][(int)(new_x)] == ' ')
+	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1' || game->cube->map[(int)(new_y)][(int)(new_x)] == ' ')
 		return (2);
 	else
 	{

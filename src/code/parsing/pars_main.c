@@ -38,7 +38,7 @@ void	check_component(t_texture *skin) //checks if the textures are initialised a
 	}
 }
 
-int	parsing(t_texture *skin, t_cube *cube, char **argv)
+int	parsing(t_texture *skin, t_cube *cube, char **argv) //verifies file extension, map header, player's presence and enclosed by wall
 {
 	cube->file_map = ft_strdup(argv[1]); //we copy the map's name
 	if (verif_file(cube)) //checks .cub extension and if we can open the .cub file
@@ -48,7 +48,7 @@ int	parsing(t_texture *skin, t_cube *cube, char **argv)
 		return (1);
 	if (verif_map(cube)) //verifies that the map adheres to the rules and checks if there's a player
 		return (1);
-	if (algo_wall(cube))
+	if (algo_wall(cube)) //verifies that the map is enclosed
 		return (1);
 	return (0);
 }

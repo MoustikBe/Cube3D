@@ -55,27 +55,27 @@ int	algo_wall(t_cube *cube) //checks if the map is surrounded by walls
 					return(printf("Error, invalid map\n"), 1);
 			}
 		}
-		while (cube->map[i][j])
+		while (cube->map[i][j]) //iterates through each grid
 		{
 			index = ft_strlen(cube->map[i]) - 2;
 			if(cube->map[i][0] != '1' && cube->map[i][0] != ' ') //first char must be 1 or space
 				return(printf("Error, invalid map\n"), 1);
-			else if(cube->map[i][ft_strlen(cube->map[i]) - 2] == ' ')
+			else if(cube->map[i][ft_strlen(cube->map[i]) - 2] == ' ') //if the previous condition is met, if there are spaces at the end of the row, skip them (u substract 2 because of the newline and null character)
 			{
 				index = ft_strlen(cube->map[i]) - 2;
-				while (cube->map[i][index] == ' ')
+				while (cube->map[i][index] == ' ') //go back until the last non-space char. Example in "1111111     " the last char would be 1
 					index--;
 			}
-			if(cube->map[i][index] != '1')
+			if(cube->map[i][index] != '1') //makes sure that the last non-space char is a 1, a wall
 				return(printf("Error, invalid map\n"));
-			if(cube->map[i][j] == '0')
+			if(cube->map[i][j] == '0') //checks that the floor tiles are surrounded by valid tiles
 			{
 				if(!cube->map[i - 1][j] || !cube->map[i + 1][j])
 					return(printf("Error, invalid map\n"), 1);
 				else if(cube->map[i - 1][j] == ' ' || cube->map[i + 1][j] == ' ')
 					return(printf("Error, invalid map\n"), 1);
 			}
-			else if(cube->map[i][j] == '\t')
+			else if(cube->map[i][j] == '\t') //tabs are not allowed
 				return(printf("Error, invalid map\n"),1 );
 			j++;
 		}
