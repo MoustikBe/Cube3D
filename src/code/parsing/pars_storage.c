@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_storage.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:09:25 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/20 13:31:53 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:34:55 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	saving_data(t_cube *cube, char *line, int index)
 	int	i;
 
 	i = 0;
-	while (line[i++])
+	while (line[i])
 	{
 		if (line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'E' || line[i] == 'W')
@@ -72,7 +72,7 @@ int	saving_data(t_cube *cube, char *line, int index)
 			set_dir_ply(cube, 0, -1);
 		else if (line[i] == 'E')
 			set_dir_ply(cube, 0, 1);
+		i++;
 	}
-	cube->map[index] = ft_strdup(line);
-	return (0);
+	return (cube->map[index] = ft_strdup(line), 0);
 }
