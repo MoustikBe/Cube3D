@@ -13,7 +13,7 @@
 #include "../../../cube.h"
 #include "../../libs/libft/libft.h"
 
-void	check_component(t_texture *skin)
+void	check_component(t_texture *skin) //checks if the textures are initialised and accesible and if the colors are between 0 and 255
 {
 	if (!skin->no || !skin->so || !skin->ea
 		|| !skin->we || !skin->c || !skin->f)
@@ -30,7 +30,7 @@ void	check_component(t_texture *skin)
 	}
 	else
 	{
-		if (rgb_checker(skin->c) || rgb_checker(skin->f))
+		if (rgb_checker(skin->c) || rgb_checker(skin->f)) //checks if the number is between 0 and 255
 		{
 			skin->error = 1;
 			return ;
@@ -43,7 +43,7 @@ int	parsing(t_texture *skin, t_cube *cube, char **argv)
 	cube->file_map = ft_strdup(argv[1]); //we copy the map's name
 	if (verif_file(cube)) //checks .cub extension and if we can open the .cub file
 		return (1);
-	verif_info(skin, cube);
+	verif_info(skin, cube); //checks if the texture paths and color format is well written in the map
 	if (skin->error)
 		return (1);
 	if (verif_map(cube))

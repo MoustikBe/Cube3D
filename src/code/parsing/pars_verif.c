@@ -32,7 +32,7 @@ int	verif_file(t_cube *c) //checks .cub extension and if we can open the .cub fi
 	return (ft_printf("Error\nBad file extension\n"));
 }
 
-void	verif_info(t_texture *skin, t_cube *cube)
+void	verif_info(t_texture *skin, t_cube *cube) //checks if the texture paths and color format is well written in the map
 {
 	char	*line;
 	int		fd_map;
@@ -42,7 +42,7 @@ void	verif_info(t_texture *skin, t_cube *cube)
 	while (line)
 	{
 		if (ft_strncmp("NO ", line, 3) == 0) //depending on the texture direction, we set one or other .xpm
-			set_skin(skin, &skin->no, line);
+			set_skin(skin, &skin->no, line); //checks if the texture has already been set, skips the spaces after NO, copies the texture path until the end
 		if (ft_strncmp("SO ", line, 3) == 0)
 			set_skin(skin, &skin->so, line);
 		if (ft_strncmp("EA ", line, 3) == 0)
@@ -50,17 +50,17 @@ void	verif_info(t_texture *skin, t_cube *cube)
 		if (ft_strncmp("WE ", line, 3) == 0)
 			set_skin(skin, &skin->we, line);
 		if (ft_strncmp("C ", line, 2) == 0)
-			set_fc_color(skin, &skin->c, line);
+			set_fc_color(skin, &skin->c, line); //checks if the color format is good and saves each color in an array
 		if (ft_strncmp("F ", line, 2) == 0)
 			set_fc_color(skin, &skin->f, line);
 		free(line);
 		line = get_next_line(fd_map);
 	}
-	check_component(skin);
+	check_component(skin); //checks if the textures have been properly initialised and accesible and if the colors are between 0 and 255
 	close(fd_map);
 }
 
-int	verif_line(char *line)
+int	verif_line(char *line) //checks if all the characters are valid ones (1, 0, S, W, E...)
 {
 	int	i;
 
@@ -85,9 +85,9 @@ int	cross_line(t_cube *cube, int fd_map, int *index)
 	line = get_next_line(fd_map);
 	while (line)
 	{
-		if (verif_line(line))
+		if (verif_line(line)) //checks if all the characters are valid ones (1, 0, S, W, E...)
 		{
-			if (saving_data(cube, line, d_index))
+			if (search_player(cube, line, d_index)) //searches the player's position and saves its coordinates
 			{
 				free(line);
 				return (1);
@@ -103,19 +103,19 @@ int	cross_line(t_cube *cube, int fd_map, int *index)
 	return (0);
 }
 
-int	verif_map(t_cube *cube)
+int	verif_map(t_cube *cube) //verifies that the map adheres to the rules and checks if there's a player
 {
 	int		fd_map;
 	int		index;
 
 	index = 0;
-	cube->map = malloc(sizeof(char *) * (len_map(cube) + 1));
+	cube->map = malloc(sizeof(char *) * (len_map(cube) + 1)); //mallocs the map
 	fd_map = open(cube->file_map, O_RDONLY);
-	if (cross_line(cube, fd_map, &index))
+	if (cross_line(cube, fd_map, &index)) //fills up the map
 		return (1);
 	close(fd_map);
 	cube->map[index] = NULL;
-	if (!cube->x_plr && !cube->y_plr)
+	if (!cube->x_plr && !cube->y_plr) //checks if there's a player
 		return (ft_printf("Error no player location found\n"));
 	return (0);
 }

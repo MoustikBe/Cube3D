@@ -13,7 +13,7 @@
 #include "../../../cube.h"
 #include "../../libs/libft/libft.h"
 
-void	set_skin(t_texture *skin, char **texture, char *line)
+void	set_skin(t_texture *skin, char **texture, char *line) //checks if the texture has already been set, skips the spaces after NO, copies the texture path until the end
 {
 	char	*str;
 	int		len;
@@ -28,32 +28,32 @@ void	set_skin(t_texture *skin, char **texture, char *line)
 	}
 	len = 0;
 	i = 2;
-	while (line[i] == ' ')
+	while (line[i] == ' ') //skips spaces after the two first characters (NO, EA, SO, WE)
 		i++;
 	i_copy = i;
 	while (line[i] && line[i] != ' ' && line[i++] != '\n')
 		len++;
 	str = malloc(len + 1);
 	len = 0;
-	while (line[i_copy] && line[i_copy] != ' ' && line[i_copy] != '\n')
+	while (line[i_copy] && line[i_copy] != ' ' && line[i_copy] != '\n') //copies the texture's path until it finished
 		str[len++] = line[i_copy++];
 	str[len] = '\0';
 	*texture = ft_strdup(str);
 	free(str);
 }
 
-void	set_dir_ply(t_cube *cube, int a, int b)
+void	set_dir_ply(t_cube *cube, int a, int b) //sets player's coordinates
 {
 	cube->y_dir_plr = a;
 	cube->x_dir_plr = b;
 }
 
-int	saving_data(t_cube *cube, char *line, int index)
+int		search_player(t_cube *cube, char *line, int index) //searches the player's position and saves its coordinates
 {
 	int	i;
 
 	i = 0;
-	while (line[i++])
+	while (line[i]) //changed this to make sure that we check the first character in case they place the char in the first position of the line
 	{
 		if (line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'E' || line[i] == 'W')
@@ -65,14 +65,15 @@ int	saving_data(t_cube *cube, char *line, int index)
 			cube->player_letter = line[i];
 		}
 		if (line[i] == 'N')
-			set_dir_ply(cube, -1, 0);
+			set_dir_ply(cube, -1, 0); //sets player's direction vectors (-1 for north), since 0 is the middle
 		else if (line[i] == 'S')
-			set_dir_ply(cube, 1, 0);
+			set_dir_ply(cube, 1, 0); //1 for south
 		else if (line[i] == 'W')
-			set_dir_ply(cube, 0, -1);
+			set_dir_ply(cube, 0, -1); //-1 west
 		else if (line[i] == 'E')
-			set_dir_ply(cube, 0, 1);
+			set_dir_ply(cube, 0, 1); //1 east
+		i++;
 	}
-	cube->map[index] = ft_strdup(line);
+	cube->map[index] = ft_strdup(line); //copies the line into the map
 	return (0);
 }

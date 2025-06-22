@@ -172,7 +172,7 @@ int		verif_line(char *line);
 int		verif_map(t_cube *cube);
 void	verif_info(t_texture *skin, t_cube *cube);
 // - pars_storage.c - //
-int		saving_data(t_cube *cube, char *line, int index);
+int		search_player(t_cube *cube, char *line, int index);
 void	set_skin(t_texture *skin, char **texture, char *line);
 // - pars_algo.c - //
 int		algo_wall(t_cube *cube);

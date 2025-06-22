@@ -37,7 +37,7 @@ int	len_map(t_cube *cube)
 	line = get_next_line(fd_map);
 	while (line)
 	{
-		if (verif_line(line))
+		if (verif_line(line)) //checks if all the characters are valid ones (1, 0, S, W, E...)
 			len++;
 		free(line);
 		line = get_next_line(fd_map);

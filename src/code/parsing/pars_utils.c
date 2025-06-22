@@ -25,7 +25,7 @@ int	big_condition(char *line)
 	return (0);
 }
 
-int	cal_len_color(char *line, int *i)
+int	cal_len_color(char *line, int *i) //counts the length of a single color value (until it reaches a comma). for example, in 255,   200, 200, it returns 3 for 255 and the pointer i stays at the comma position
 {
 	int	len;
 
