@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graph_moov.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:40:17 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/25 11:59:33 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/06/22 20:02:41 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	moov_front(t_game *game, float new_x, float new_y)
 {
 	new_x = game->px + game->pdx;
 	new_y = game->py + game->pdy;
-	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1')
+	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1'
+		|| game->cube->map[(int)(new_y)][(int)(new_x)] == ' ')
 		return (2);
 	else
 	{
@@ -33,7 +34,8 @@ int	moov_back(t_game *game, float new_x, float new_y)
 {
 	new_x = game->px - game->pdx;
 	new_y = game->py - game->pdy;
-	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1')
+	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1'
+		|| game->cube->map[(int)(new_y)][(int)(new_x)] == ' ')
 		return (2);
 	else
 	{
@@ -48,7 +50,8 @@ int	moov_left(t_game *game, float new_x, float new_y)
 {
 	new_x = game->px + game->pdy;
 	new_y = game->py - game->pdx;
-	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1')
+	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1'
+		|| game->cube->map[(int)(new_y)][(int)(new_x)] == ' ')
 		return (2);
 	else
 	{
@@ -63,7 +66,8 @@ int	moov_right(t_game *game, float new_x, float new_y)
 {
 	new_x = game->px - game->pdy;
 	new_y = game->py + game->pdx;
-	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1')
+	if (game->cube->map[(int)(new_y)][(int)(new_x)] == '1'
+		|| game->cube->map[(int)(new_y)][(int)(new_x)] == ' ')
 		return (2);
 	else
 	{
