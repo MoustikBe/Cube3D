@@ -43,10 +43,10 @@ int	parsing(t_texture *skin, t_cube *cube, char **argv)
 	cube->file_map = ft_strdup(argv[1]); //we copy the map's name
 	if (verif_file(cube)) //checks .cub extension and if we can open the .cub file
 		return (1);
-	verif_info(skin, cube); //checks if the texture paths and color format is well written in the map
+	verif_map_header(skin, cube); //checks if the texture paths and color format are well written in the map
 	if (skin->error)
 		return (1);
-	if (verif_map(cube))
+	if (verif_map(cube)) //verifies that the map adheres to the rules and checks if there's a player
 		return (1);
 	if (algo_wall(cube))
 		return (1);

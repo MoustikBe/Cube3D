@@ -13,7 +13,7 @@
 #include "../../../cube.h"
 #include "../../libs/libft/libft.h"
 
-int	big_condition(char *line)
+int	is_map_line(char *line) //checks if the line is part of the map or of the textures/color lines
 {
 	if (!ft_strncmp("NO ", line, 3) || !ft_strncmp("EA ", line, 3)
 		|| !ft_strncmp("WE ", line, 3)

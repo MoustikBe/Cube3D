@@ -32,7 +32,7 @@ int	verif_file(t_cube *c) //checks .cub extension and if we can open the .cub fi
 	return (ft_printf("Error\nBad file extension\n"));
 }
 
-void	verif_info(t_texture *skin, t_cube *cube) //checks if the texture paths and color format is well written in the map
+void	verif_map_header(t_texture *skin, t_cube *cube) //checks if the texture paths and color format are well written in the map
 {
 	char	*line;
 	int		fd_map;
@@ -76,30 +76,30 @@ int	verif_line(char *line) //checks if all the characters are valid ones (1, 0, 
 	return (0);
 }
 
-int	cross_line(t_cube *cube, int fd_map, int *index)
+int	cross_line(t_cube *cube, int fd_map, int *index) //checks that the map has only valid chars, searches the player's position, checks structure of map and saves number of map lines
 {
 	char	*line;
-	int		d_index;
+	int	num_lines; //number of map lines
 
-	d_index = 0;
+	num_lines = 0;
 	line = get_next_line(fd_map);
 	while (line)
 	{
 		if (verif_line(line)) //checks if all the characters are valid ones (1, 0, S, W, E...)
 		{
-			if (search_player(cube, line, d_index)) //searches the player's position and saves its coordinates
+			if (search_player(cube, line, num_lines)) //searches the player's position and saves its coordinates
 			{
 				free(line);
 				return (1);
 			}
-			d_index++;
+			num_lines++;
 		}
-		else if (!big_condition(line))
+		else if (!is_map_line(line)) //checks if the line is part of the map or of the textures/color lines
 			return (free(line), ft_printf("Error bad config file\n"));
 		free(line);
 		line = get_next_line(fd_map);
 	}
-	*index = d_index;
+	*index = num_lines; //save the number of lines in the map
 	return (0);
 }
 
@@ -111,7 +111,7 @@ int	verif_map(t_cube *cube) //verifies that the map adheres to the rules and che
 	index = 0;
 	cube->map = malloc(sizeof(char *) * (len_map(cube) + 1)); //mallocs the map
 	fd_map = open(cube->file_map, O_RDONLY);
-	if (cross_line(cube, fd_map, &index)) //fills up the map
+	if (cross_line(cube, fd_map, &index)) //checks that the map has only valid chars, searches the player's position, checks structure of map and saves number of map lines
 		return (1);
 	close(fd_map);
 	cube->map[index] = NULL;
