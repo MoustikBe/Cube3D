@@ -20,7 +20,7 @@ void	set_skin(t_texture *skin, char **texture, char *line)
 	int		i;
 	int		i_copy;
 
-	if (*texture) //a different texture is being passed as an argument in 
+	if (*texture) //a different texture path is being passed as an argument in verif_file per each (NO, EA, WE, SO)
 	{
 		ft_printf("Error\nDuplicate information detected.\n");
 		skin->error = 1;
