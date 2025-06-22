@@ -40,8 +40,8 @@ void	check_component(t_texture *skin)
 
 int	parsing(t_texture *skin, t_cube *cube, char **argv)
 {
-	cube->file_map = ft_strdup(argv[1]);
-	if (verif_file(cube))
+	cube->file_map = ft_strdup(argv[1]); //we copy the map's name
+	if (verif_file(cube)) //checks .cub extension and if we can open the .cub file
 		return (1);
 	verif_info(skin, cube);
 	if (skin->error)

@@ -15,9 +15,9 @@
 
 int	main(int argc, char **argv)
 {
-	t_texture	*skin;
-	t_cube		*cube;
-	t_game		*game;
+	t_texture	*skin; //contains all textures and floor/ceiling colors + error
+	t_cube		*cube; //contains player position and direction coordinates
+	t_game		*game; //mlx struct
 
 	if (argc != 2)
 		return (ft_printf("Error\nOnly one argument is accepted !\n"));

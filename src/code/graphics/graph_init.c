@@ -49,13 +49,13 @@ int	rgb_to_hex(int *rgb)
 
 static void	init_player_rotation(t_game *game, t_cube *cube)
 {
-	if (cube->player == 'E')
+	if (cube->player_letter == 'E')
 		game->pa = 0;
-	else if (cube->player == 'S')
+	else if (cube->player_letter == 'S')
 		game->pa = 1.55;
-	else if (cube->player == 'W')
+	else if (cube->player_letter == 'W')
 		game->pa = 3.10;
-	else if (cube->player == 'N')
+	else if (cube->player_letter == 'N')
 		game->pa = 4.65;
 	return ;
 }
@@ -77,8 +77,6 @@ void	graph_init(t_game *game, t_cube *cube, t_texture *skin)
 	game->cube = cube;
 	game->px = cube->x_plr;
 	game->py = cube->y_plr;
-	game->angle = 0;
-	game->speed = 1.4;
 	game->mlx3d = mlx_init();
 	mlx_get_screen_size(game->mlx3d, &game->width, &game->height);
 	game->wdw3d = mlx_new_window(game->mlx3d,

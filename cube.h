@@ -18,8 +18,7 @@
 # include <unistd.h> 
 # include <stdlib.h>
 # include <fcntl.h>
-# include <math.h>
-// # --- Library --- # // 
+# include <math.h> 
 
 // # --- Macro --- # // 
 # define PI 3.1415926
@@ -38,50 +37,43 @@ typedef struct t_texture
 
 typedef struct t_cube
 {
-	char	*file_map;
+	char	*file_map; //the name of the map
 	char	**map;
-	int		x_plr;
-	int		y_plr;
-	int		x_dir_plr;
-	int		y_dir_plr;
-	int		player;
+	int		x_plr; //player x coordinate
+	int		y_plr; //player y coordinate
+	int		x_dir_plr; //x direction vector of the player. Example: (x_dir_plr, y_dir_plr) = (1, 0) means facing right, (0, -1) means facing up.
+	int		y_dir_plr; //same as the previous one but regarding y coordinate
+	int		player_letter; //player's letter in that moment (N, S, E, W), since the player is represented in the map by one of these letters
 }	t_cube;
 
 typedef struct s_img
 {
-	void	*img;
-	int		*data;
+	void	*img; //Pointer to the image object returned by mlx_new_image()
+	int		*data; //Pointer to the actual pixel data of the image  (colours of the pixel)
 	int		width;
 	int		height;
-	int		bpp;
+	int		bpp; //how many bits are used for each pixel (e.g. 32 bits = 4 bytes = RGBA).
 	int		line_len;
-	int		endian;
+	int		endian; //how bits are stored
 }	t_img;
 
 typedef struct t_game
 {
 	int		width;
 	int		height;
-	void	*mlx;
-	void	*mlx3d;
-	void	*wdw;
+	void	*mlx3d; //buffers to draw the image
 	void	*wdw3d;
 	void	*img;
 	void	*img3d;
-	char	*addr;
 	char	*addr3d;
 	int		endian;
-	int		line_length;
-	int		bit_per_pixel;
 	int		line_length3d;
 	int		bit_per_pixel3d;
 	int		endian3d;
-	char	*wall_texutre;
 	t_img	tex_n;
 	t_img	tex_s;
 	t_img	tex_e;
 	t_img	tex_w;
-	t_img	mini_map;
 	int		ceiling_color;
 	int		floor_color;
 	int		front;
@@ -92,30 +84,12 @@ typedef struct t_game
 	int		r_right;
 	int		exit;
 	char	**map;
-	float	angle;
-	float	speed;
 	float	px;
 	float	py;
 	float	pdx;
 	float	pdy;
 	float	pa;
-	int		r;
-	int		mx;
-	int		my;
-	int		mp;
-	int		dof;
-	float	rx;
-	float	ry;
-	float	ra;
-	float	xo;
-	float	yo;
 	int		keys[256];
-	int		len_x;
-	int		len_y;
-	void	*g_no;
-	void	*g_so;
-	void	*g_ea;
-	void	*g_we;
 	t_cube	*cube;
 }	t_game;
 

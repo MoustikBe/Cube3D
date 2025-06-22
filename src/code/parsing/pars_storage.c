@@ -20,7 +20,7 @@ void	set_skin(t_texture *skin, char **texture, char *line)
 	int		i;
 	int		i_copy;
 
-	if (*texture)
+	if (*texture) //a different texture is being passed as an argument in 
 	{
 		ft_printf("Error\nDuplicate information detected.\n");
 		skin->error = 1;
@@ -62,7 +62,7 @@ int	saving_data(t_cube *cube, char *line, int index)
 				return (ft_printf("Error duplicate component\n"));
 			cube->y_plr = index;
 			cube->x_plr = i;
-			cube->player = line[i];
+			cube->player_letter = line[i];
 		}
 		if (line[i] == 'N')
 			set_dir_ply(cube, -1, 0);

@@ -13,12 +13,12 @@
 #include "../../../cube.h"
 #include "../../libs/libft/libft.h"
 
-int	verif_file(t_cube *c)
+int	verif_file(t_cube *c) //checks .cub extension and if we can open the .cub file
 {
 	int	l;
 
 	l = ft_strlen(c->file_map);
-	if (l > 3)
+	if (l > 3) //we check if it's longer than the extension cub
 	{
 		if (c->file_map[l - 1] == 'b' && c->file_map[l - 2] == 'u'
 			&& c->file_map[l - 3] == 'c' && c->file_map[l - 4] == '.')
@@ -37,11 +37,11 @@ void	verif_info(t_texture *skin, t_cube *cube)
 	char	*line;
 	int		fd_map;
 
-	fd_map = open(cube->file_map, O_RDONLY);
-	line = get_next_line(fd_map);
+	fd_map = open(cube->file_map, O_RDONLY); //open the map file
+	line = get_next_line(fd_map); //read the map line by line
 	while (line)
 	{
-		if (ft_strncmp("NO ", line, 3) == 0)
+		if (ft_strncmp("NO ", line, 3) == 0) //depending on the texture direction, we set one or other .xpm
 			set_skin(skin, &skin->no, line);
 		if (ft_strncmp("SO ", line, 3) == 0)
 			set_skin(skin, &skin->so, line);
