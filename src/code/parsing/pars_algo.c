@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:14:06 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/06/22 19:25:21 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:28:40 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	verif_first_last(t_cube *cube, int i, int *j)
 {
 	while (cube->map[i][*j])
 	{
-		if (cube->map[i][*j] == '1' || cube->map[i][*j] == '\v' || cube->map[i][*j] == '\t' || cube->map[i][*j] == ' ' || cube->map[i][*j] == '\n')
+		if (cube->map[i][*j] == '1' || cube->map[i][*j] == '\v'
+			|| cube->map[i][*j] == '\t' || cube->map[i][*j] == ' '
+			|| cube->map[i][*j] == '\n')
 			(*j)++;
 		else
 			return (printf("Error, invalid map\n"), 1);
