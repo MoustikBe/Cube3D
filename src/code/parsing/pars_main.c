@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:58:44 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/09 17:40:17 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/06/16 19:57:38 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,22 @@
 
 void	check_component(t_texture *skin)
 {
-	int i;
-
-	if(!skin->NO || !skin->SO || !skin->EA || !skin->WE || !skin->C || !skin->F)
+	if (!skin->no || !skin->so || !skin->ea
+		|| !skin->we || !skin->c || !skin->f)
 	{
 		ft_printf("Error\nMissing color or texture valid.\n");
 		skin->error = 1;
 	}
-	else if(open(skin->NO, R_OK) < 0 || open(skin->SO, R_OK) < 0 || open(skin->EA, R_OK) < 0 || open(skin->WE, R_OK) < 0)
+	else if (open(skin->no, O_RDONLY) < 0
+		|| open(skin->so, O_RDONLY) < 0 || open(skin->ea, O_RDONLY) < 0
+		|| open(skin->we, O_RDONLY) < 0)
 	{
-		ft_printf("Error\nInvalid texture file. %s\n", skin->NO);
+		ft_printf("Error\nInvalid texture file.\n");
 		skin->error = 1;
 	}
 	else
 	{
-		if(rgb_checker(skin->C) || rgb_checker(skin->F))
+		if (rgb_checker(skin->c) || rgb_checker(skin->f))
 		{
 			skin->error = 1;
 			return ;
@@ -39,8 +40,8 @@ void	check_component(t_texture *skin)
 
 int	parsing(t_texture *skin, t_cube *cube, char **argv)
 {
-	cube->file_map = ft_strdup(argv[1]); // leaks
-	if (verif_file(cube))
+	cube->file_map = ft_strdup(argv[1]); //we copy the map's name
+	if (verif_file(cube)) //checks .cub extension and if we can open the .cub file
 		return (1);
 	verif_info(skin, cube);
 	if (skin->error)

@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:09:25 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/08 20:08:39 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/03/20 13:31:53 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 void	set_skin(t_texture *skin, char **texture, char *line)
 {
-	char *str;
-	int len;
-	int i;
-	int i_copy;
+	char	*str;
+	int		len;
+	int		i;
+	int		i_copy;
 
-	if(*texture)
+	if (*texture) //a different texture is being passed as an argument in 
 	{
 		ft_printf("Error\nDuplicate information detected.\n");
 		skin->error = 1;
@@ -31,11 +31,8 @@ void	set_skin(t_texture *skin, char **texture, char *line)
 	while (line[i] == ' ')
 		i++;
 	i_copy = i;
-	while (line[i] && line[i] != ' ' && line[i] != '\n')
-	{
+	while (line[i] && line[i] != ' ' && line[i++] != '\n')
 		len++;
-		i++;
-	}
 	str = malloc(len + 1);
 	len = 0;
 	while (line[i_copy] && line[i_copy] != ' ' && line[i_copy] != '\n')
@@ -45,42 +42,37 @@ void	set_skin(t_texture *skin, char **texture, char *line)
 	free(str);
 }
 
-int saving_data(t_cube *cube, char *line, int index)
+void	set_dir_ply(t_cube *cube, int a, int b)
 {
-	int i;
+	cube->y_dir_plr = a;
+	cube->x_dir_plr = b;
+}
+
+int	saving_data(t_cube *cube, char *line, int index)
+{
+	int	i;
 
 	i = 0;
-	while (line[i])
+	while (line[i++])
 	{
-		if(line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+		if (line[i] == 'N' || line[i] == 'S'
+			|| line[i] == 'E' || line[i] == 'W')
 		{
-			if(cube->y_plr || cube->x_plr)
-				return(ft_printf("Error duplicate component\n"));
+			if (cube->y_plr || cube->x_plr)
+				return (ft_printf("Error duplicate component\n"));
 			cube->y_plr = index;
 			cube->x_plr = i;
+			cube->player_letter = line[i];
 		}
-		if(line[i] == 'N')
-		{
-			cube->y_dir_plr = -1;
-			cube->x_dir_plr = 0;
-		}
-		else if(line[i] == 'S')
-		{
-			cube->y_dir_plr = 1;
-			cube->x_dir_plr = 0;
-		}
-		else if(line[i] == 'W')
-		{
-			cube->y_dir_plr = 0;
-			cube->x_dir_plr = -1;
-		}
-		else if(line[i] == 'E')
-		{
-			cube->y_dir_plr = 0;
-			cube->x_dir_plr = 1;
-		}
-		i++;
+		if (line[i] == 'N')
+			set_dir_ply(cube, -1, 0);
+		else if (line[i] == 'S')
+			set_dir_ply(cube, 1, 0);
+		else if (line[i] == 'W')
+			set_dir_ply(cube, 0, -1);
+		else if (line[i] == 'E')
+			set_dir_ply(cube, 0, 1);
 	}
 	cube->map[index] = ft_strdup(line);
-	return(0);
+	return (0);
 }
