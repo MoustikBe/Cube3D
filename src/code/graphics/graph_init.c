@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:42 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/06/23 13:41:06 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:52:53 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ int	load_all_texture(t_texture *skin, t_game *game)
 {
 	if (load_texture(game, &game->tex_n, skin->no))
 		return (ft_printf(
-				"Error loading the North texture, verify the path pls\n"));
+				"Error loading the North texture, verify the path please\n"));
 	if (load_texture(game, &game->tex_s, skin->so))
 		return (ft_printf(
-				"Error loading the South texture, verify the path pls\n"));
+				"Error loading the South texture, verify the path please\n"));
 	if (load_texture(game, &game->tex_e, skin->ea))
 		return (ft_printf(
-				"Error loading the East texture, verify the path pls\n"));
+				"Error loading the East texture, verify the path please\n"));
 	if (load_texture(game, &game->tex_w, skin->we))
 		return (ft_printf(
-				"Error loading the West texture, verify the path pls\n"));
+				"Error loading the West texture, verify the path please\n"));
 	return (0);
 }
 
