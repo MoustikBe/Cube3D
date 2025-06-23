@@ -14,28 +14,28 @@
 #include "../../libs/libft/libft.h"
 #include "../../libs/minilibx-linux/mlx.h"
 
-int	exit_game(t_game *game)
+int	exit_game(t_game *game) //close the window
 {
 	mlx_destroy_window(game->mlx3d, game->wdw3d);
 	free(game->mlx3d);
 	exit(1);
 }
 
-int	mng_input(t_game *game)
+int	mng_input(t_game *game) //manage movement and rotation
 {
 	if (game->exit)
 		exit_game(game);
 	if (game->front)
-		if (moov_front(game, 0, 0))
+		if (move_front(game, 0, 0))
 			return (2);
 	if (game->back)
-		if (moov_back(game, 0, 0))
+		if (move_back(game, 0, 0))
 			return (2);
 	if (game->left)
-		if (moov_left(game, 0, 0))
+		if (move_left(game, 0, 0))
 			return (2);
 	if (game->right)
-		if (moov_right(game, 0, 0))
+		if (move_right(game, 0, 0))
 			return (2);
 	if (game->r_right)
 		rotate_right(game);

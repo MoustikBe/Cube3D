@@ -96,8 +96,11 @@ int	is_valid_map(t_cube *cube, int fd_map, int *index) //checks that the map has
 		}
 		else if (!is_map_line(line)) //checks if the line is part of the map or of the textures/color lines
 			return (free(line), ft_printf("Error bad config file or invalid map\n"));
-		else if (cube->map[0] && line[0] == '\n')
-			return (free(line), ft_printf("Error empty line in map"));
+		else if (line[0] == '\n')
+		{
+			if(cube->map[0])
+				return (free(line), ft_printf("Error empty line in map"));
+		}
 		free(line);
 		line = get_next_line(fd_map);
 	}

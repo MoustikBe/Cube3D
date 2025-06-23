@@ -28,8 +28,8 @@ SRC			=	$(SRC_DIR)/code/main.c \
 				$(SRC_DIR)/code/graphics/graph_main.c \
 				$(SRC_DIR)/code/graphics/graph_init.c \
 				$(SRC_DIR)/code/graphics/graph_gameplay.c \
-				$(SRC_DIR)/code/graphics/graph_moov.c \
-				$(SRC_DIR)/code/graphics/graph_moov_rotate.c \
+				$(SRC_DIR)/code/graphics/graph_move.c \
+				$(SRC_DIR)/code/graphics/graph_move_rotate.c \
 				$(SRC_DIR)/code/graphics/graph_key.c \
 				$(SRC_DIR)/code/graphics/graph_raycast.c \
 				$(SRC_DIR)/code/graphics/graph_ray_utils.c \

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graph_moov_rotate.c                                :+:      :+:    :+:   */
+/*   graph_move_rotate.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -16,7 +16,7 @@
 
 void	rotate_left(t_game *game)
 {
-	game->pa -= 0.1;
+	game->pa -= 0.05; //rotates to the left
 	if (game->pa < 0)
 		game->pa += 2 * PI;
 	game->pdx = cos(game->pa) * 0.05;
@@ -26,8 +26,8 @@ void	rotate_left(t_game *game)
 
 void	rotate_right(t_game *game)
 {
-	game->pa += 0.1;
-	if (game->pa > 2 * PI)
+	game->pa += 0.05; //rotates to the right
+	if (game->pa > 2 * PI) //if it goes above 360º, gets it back to 0
 		game->pa -= 2 * PI;
 	game->pdx = cos(game->pa) * 0.05;
 	game->pdy = sin(game->pa) * 0.05;

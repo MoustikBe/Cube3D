@@ -16,19 +16,19 @@
 
 int	ft_key_press(int keycode, t_game *game)
 {
-	if (keycode == 119 || keycode == 65362)
+	if (keycode == 119 || keycode == 65362) //W or up arrow
 		game->front = 1;
-	else if (keycode == 115 || keycode == 65364)
+	else if (keycode == 115 || keycode == 65364) //S or down arrow
 		game->back = 1;
-	else if (keycode == 97)
+	else if (keycode == 97) //A
 		game->left = 1;
-	else if (keycode == 100)
+	else if (keycode == 100) //D
 		game->right = 1;
-	else if (keycode == 65361)
+	else if (keycode == 65361) //left arrow
 		game->r_left = 1;
-	else if (keycode == 65363)
+	else if (keycode == 65363) //right arrow
 		game->r_right = 1;
-	else if (keycode == 65307)
+	else if (keycode == 65307) //ESC key
 		game->exit = 1;
 	return (0);
 }

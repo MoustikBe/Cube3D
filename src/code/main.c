@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 	game = malloc(sizeof(t_game));
 	init_struct(skin, cube);
 	if (parsing(skin, cube, argv)) //verifies file extension .cub, map header, player's presence and map enclosed by walls
-		return (1);
+		exit (1);
 	game->map = copy_map(cube->map); //creates a copy of the map to change the player's position without affecting the real original map
 	graph_main(cube, skin);
 	return (free(cube), free(skin), free(game), 0); //free the structs

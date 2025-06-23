@@ -103,9 +103,9 @@ typedef struct t_ray
 	float	ray_angle;
 	int		mapx;
 	int		mapy;
-	int		side;
-	int		stepx;
-	int		stepy;
+	int		side; //0 if we hit a vertical way and 1 if we hit a horizontal way
+	int		stepx; //1 if going right or -1 if going left
+	int		stepy; //1 if going down or -1 if going up
 	float	perpwalldist;
 	float	correcteddist;
 	int		lineheight;
@@ -141,11 +141,11 @@ int		load_all_texture(t_texture *skin, t_game *game);
 // - graph_gameplay.c - //
 int		exit_game(t_game *game);
 int		game_loop(t_game *game);
-// - graph_moov.c - //
-int		moov_front(t_game *game, float new_x, float new_y);
-int		moov_back(t_game *game, float new_x, float new_y);
-int		moov_left(t_game *game, float new_x, float new_y);
-int		moov_right(t_game *game, float new_x, float new_y);
+// - graph_move.c - //
+int		move_front(t_game *game, float new_x, float new_y);
+int		move_back(t_game *game, float new_x, float new_y);
+int		move_left(t_game *game, float new_x, float new_y);
+int		move_right(t_game *game, float new_x, float new_y);
 void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
 // - graph_key.c - //

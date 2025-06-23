@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graph_moov.c                                       :+:      :+:    :+:   */
+/*   graph_move.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,7 +14,7 @@
 #include "../../libs/libft/libft.h"
 #include "../../libs/minilibx-linux/mlx.h"
 
-int	moov_front(t_game *game, float new_x, float new_y)
+int	move_front(t_game *game, float new_x, float new_y)
 {
 	new_x = game->px + game->pdx;
 	new_y = game->py + game->pdy;
@@ -29,7 +29,7 @@ int	moov_front(t_game *game, float new_x, float new_y)
 	return (0);
 }
 
-int	moov_back(t_game *game, float new_x, float new_y)
+int	move_back(t_game *game, float new_x, float new_y)
 {
 	new_x = game->px - game->pdx;
 	new_y = game->py - game->pdy;
@@ -44,7 +44,7 @@ int	moov_back(t_game *game, float new_x, float new_y)
 	return (0);
 }
 
-int	moov_left(t_game *game, float new_x, float new_y)
+int	move_left(t_game *game, float new_x, float new_y)
 {
 	new_x = game->px + game->pdy;
 	new_y = game->py - game->pdx;
@@ -59,7 +59,7 @@ int	moov_left(t_game *game, float new_x, float new_y)
 	return (0);
 }
 
-int	moov_right(t_game *game, float new_x, float new_y)
+int	move_right(t_game *game, float new_x, float new_y)
 {
 	new_x = game->px - game->pdy;
 	new_y = game->py + game->pdx;
