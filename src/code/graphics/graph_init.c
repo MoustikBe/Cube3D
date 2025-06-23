@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:31:42 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/06/22 19:06:08 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:41:06 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	graph_init(t_game *game, t_cube *cube, t_texture *skin)
 	game->mlx3d = mlx_init();
 	mlx_get_screen_size(game->mlx3d, &game->width, &game->height);
 	game->wdw3d = mlx_new_window(game->mlx3d,
-			game->width / 2.5, game->height / 2, "cube3D");
+			game->width / 2.5, game->height / 2, "cub3D");
 	game->img3d = mlx_new_image(game->mlx3d,
 			game->width / 2.5, game->height / 2);
 	game->addr3d = mlx_get_data_addr(game->img3d,
