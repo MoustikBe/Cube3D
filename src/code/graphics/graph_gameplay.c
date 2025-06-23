@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graph_gameplay.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:02:01 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/25 11:56:52 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:56:40 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ int	mng_input(t_game *game)
 	if (game->exit)
 		exit_game(game);
 	if (game->front)
-		if (moov_front(game, 0, 0))
+		if (move_front(game, 0, 0))
 			return (2);
 	if (game->back)
-		if (moov_back(game, 0, 0))
+		if (move_back(game, 0, 0))
 			return (2);
 	if (game->left)
-		if (moov_left(game, 0, 0))
+		if (move_left(game, 0, 0))
 			return (2);
 	if (game->right)
-		if (moov_right(game, 0, 0))
+		if (move_right(game, 0, 0))
 			return (2);
 	if (game->r_right)
 		rotate_right(game);

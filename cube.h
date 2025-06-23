@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:36:55 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/06/23 16:36:48 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:56:40 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,11 +142,11 @@ int		load_all_texture(t_texture *skin, t_game *game);
 // - graph_gameplay.c - //
 int		exit_game(t_game *game);
 int		game_loop(t_game *game);
-// - graph_moov.c - //
-int		moov_front(t_game *game, float new_x, float new_y);
-int		moov_back(t_game *game, float new_x, float new_y);
-int		moov_left(t_game *game, float new_x, float new_y);
-int		moov_right(t_game *game, float new_x, float new_y);
+// - graph_move.c - //
+int		move_front(t_game *game, float new_x, float new_y);
+int		move_back(t_game *game, float new_x, float new_y);
+int		move_left(t_game *game, float new_x, float new_y);
+int		move_right(t_game *game, float new_x, float new_y);
 void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
 // - graph_key.c - //
