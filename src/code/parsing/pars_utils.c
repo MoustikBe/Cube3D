@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:22:12 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/24 12:04:27 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:38:59 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,13 @@ int	cal_len_color(char *line, int *i)
 		}
 	}
 	return (len);
+}
+
+void	empty_line_scenario(t_cube *cube)
+{
+	if (cube->map[0])
+	{
+		ft_printf("Error empty line in map\n");
+		exit (1);
+	}
 }

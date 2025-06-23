@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: misaac-c <misaac-c@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 12:27:51 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/03/20 12:48:50 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:39:18 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 	game = malloc(sizeof(t_game));
 	init_struct(skin, cube);
 	if (parsing(skin, cube, argv))
-		return (1);
+		exit(1);
 	game->map = copy_map(cube->map);
 	graph_main(cube, skin);
 	return (free(cube), free(skin), free(game), 0);

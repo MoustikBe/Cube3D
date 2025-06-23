@@ -6,7 +6,7 @@
 /*   By: misaac-c <misaac-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:36:55 by misaac-c          #+#    #+#             */
-/*   Updated: 2025/06/22 19:06:55 by misaac-c         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:36:48 by misaac-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ int		algo_wall(t_cube *cube);
 // - pars_utils.c - //
 int		big_condition(char *line);
 int		cal_len_color(char *line, int *i);
+void	empty_line_scenario(t_cube *cube);
 
 // -- Utils -- //
 // - utils.c - //
